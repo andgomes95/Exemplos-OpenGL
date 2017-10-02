@@ -33,6 +33,8 @@ void keyPressed(unsigned char key, int x, int y) {
     }else if(key == 97){
         rotate += 1.0;
         display();
+    }else if(key == 100){
+        rotate -= 1.0;
     }//se pressionar esc, saiu
 }
 void reshapeFunc(int x, int y)
