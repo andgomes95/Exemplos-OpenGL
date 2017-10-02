@@ -34,4 +34,19 @@ g++ Pratica*.cpp -o pratica -lX11 -lXi -lXmu -lglut -lGL -lGLU -lm
 
 - Pratica 016 - glutSolidTorus
 
+- Pratica 017 - Dodecahedron
+
+- Pratica 018 - Octahedron
+
+- Pratica 019 - Tetrahedron
+
+- Pratica 020 - Icosahedron
+
+- Pratica 021 - Teapot
+
+- Pratica 022 - Rotação de objetos diferentes 
+
+- Pratica 023 - Rotação de objetos diferentes controlado por teclado (com A e D)
+
+
 
