@@ -5,14 +5,42 @@
 #include <stdio.h>
 #define ESCAPE 27 //Valor em ASCII do Esc
 int window;
+void drawBody(){
+    glPushMatrix();
+    glColor3f(1.0f,1.0f,0.0f);
+    glScalef(2.0f,2.0f,0.3f);
+    glutSolidCube(1.0f);
+    glPopMatrix();
+}
+void drawShoulder(){
+    glPushMatrix();
+    glColor3f(1.0f,0.5f,0.25f);
+    glScalef(0.3f,0.4f,0.3f);
+    glRotatef(90,-1.0f,0.0f,0.0f);
+    glutSolidCone(1.0f,1.0f,10,10);
+    glPopMatrix();
+}
+void drawHuge(){
+    drawShoulder();
+}
+void putHuges(){
+    glPushMatrix();
+    glTranslatef(-1.3f,0.0f,-0.01f);
+    drawHuge();
+    glPopMatrix();
+    glPushMatrix();
+    glTranslatef(1.3f,0.0f,-0.01f);
+    drawHuge();
+    glPopMatrix();
+}
 void display(void){
     glMatrixMode(GL_MODELVIEW);
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
-    glTranslatef(0.0,0.0,-15.0);
-    glRotatef(45,1.0,1.0,1.0f);
-    glColor3f(1.0f,1.0f,0.0f);
-    glutSolidCube(1.0f);
+    glTranslatef(0.0,0.0,-5.0);
+    glRotatef(22,0.0,1.0,0.0);
+    drawBody();
+    putHuges();
     glFlush();
     glutSwapBuffers();
 }

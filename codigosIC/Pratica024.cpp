@@ -96,7 +96,7 @@ void keyPressed(unsigned char key, int x, int y) {
   }else if (key == 100){
       rotatey -= 1.0;
   }else if (key == 122){
-      if(prox > 0.1){
+      if(prox > 0.06){
           prox -= 0.01;
       }
   }else if(key == 120){
