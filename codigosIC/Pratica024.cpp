@@ -5,7 +5,7 @@
 #include <stdio.h>
 #define ESCAPE 27 //Valor em ASCII do Esc
 int window;
-GLfloat rotatey=0.0,rotatex1=0.0,rotatex2=0.0,prox=1.0;
+GLfloat rotatey=0.0,rotatex1=0.0,rotatex2=0.0,prox=1.0,angle;
 void drawBrace(){
     glTranslatef(0.0,1.5,0.0);
     glPushMatrix();
@@ -57,7 +57,8 @@ void drawHand(){
 }
 void display(void){
     glMatrixMode(GL_MODELVIEW);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    gluLookAt(0,80,200, 0,0,0, 0,1,0);
     glLoadIdentity();
     glTranslatef(-2.5,-2.5,-15.0);
     drawCube();
@@ -115,17 +116,45 @@ void reshapeFunc(int x, int y){
 void idleFunc(void){
     display();
 }
+void iluminacao(){
+    GLfloat luzAmbiente[4]={0.2,0.2,0.2,1.0};
+    GLfloat luzDifusa[4]={0.2,0.2,0.2,1.0};
+    GLfloat luzEspecular[4]={1.0,1.0,1.0,1.0};
+    GLfloat posicaoLuz[4]={0.0,200.0,50.0,1.0};
+
+    GLfloat especularidade[4]={1.0,1.0,1.0,1.0};
+    GLint especMaterial = 60;
+    glClearColor(0.0,0.0,0.0,1.0f);
+
+    glShadeModel(GL_SMOOTH);
+    glMaterialfv(GL_FRONT,GL_SPECULAR,especularidade);
+    glMateriali(GL_FRONT,GL_SHININESS,especMaterial);
+
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT,luzAmbiente);
+
+    glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular);
+    glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
+
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glEnable(GL_DEPTH_TEST);
+    angle = 45;
+
+}
 int main (int argc, char **argv){
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(800,600);
     glutCreateWindow("Pratica 24 - Braco Mecanico");
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glClearColor(0.5,0.5,0.5,0.5);
     glutDisplayFunc(display);
     glutReshapeFunc(reshapeFunc);
     glutIdleFunc(idleFunc);
     glutKeyboardFunc(&keyPressed);
+    iluminacao();
     glutMainLoop();
     return 0;
 }
