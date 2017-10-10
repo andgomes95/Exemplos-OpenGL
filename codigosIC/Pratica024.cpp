@@ -59,6 +59,7 @@ void display(void){
     glMatrixMode(GL_MODELVIEW);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     gluLookAt(0,80,200, 0,0,0, 0,1,0);
+    glClearColor(0.0,0.0,0.0,1.0f);
     glLoadIdentity();
     glTranslatef(-2.5,-2.5,-15.0);
     drawCube();
@@ -116,34 +117,7 @@ void reshapeFunc(int x, int y){
 void idleFunc(void){
     display();
 }
-void iluminacao(){
-    GLfloat luzAmbiente[4]={0.2,0.2,0.2,1.0};
-    GLfloat luzDifusa[4]={0.2,0.2,0.2,1.0};
-    GLfloat luzEspecular[4]={1.0,1.0,1.0,1.0};
-    GLfloat posicaoLuz[4]={0.0,200.0,50.0,1.0};
 
-    GLfloat especularidade[4]={1.0,1.0,1.0,1.0};
-    GLint especMaterial = 60;
-    glClearColor(0.0,0.0,0.0,1.0f);
-
-    glShadeModel(GL_SMOOTH);
-    glMaterialfv(GL_FRONT,GL_SPECULAR,especularidade);
-    glMateriali(GL_FRONT,GL_SHININESS,especMaterial);
-
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT,luzAmbiente);
-
-    glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular);
-    glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
-
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_DEPTH_TEST);
-    angle = 45;
-
-}
 int main (int argc, char **argv){
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
@@ -154,7 +128,6 @@ int main (int argc, char **argv){
     glutReshapeFunc(reshapeFunc);
     glutIdleFunc(idleFunc);
     glutKeyboardFunc(&keyPressed);
-    iluminacao();
     glutMainLoop();
     return 0;
 }

@@ -48,5 +48,15 @@ g++ Pratica*.cpp -o pratica -lX11 -lXi -lXmu -lglut -lGL -lGLU -lm
 
 - Pratica 023 - Rotação de objetos diferentes controlado por teclado (com A e D)
 
+- Pratica 024 - Braço Mecanico
+
+- Pratica 025 - Braço Mecanico com Iluminação
+
+- Pratica 026 - Bob Esponja
+
+- Pratica 027 - Bob Esponja com Iluminação
+
+- Pratica 028 - Texturização do Plano de Fundo
+
 
 
