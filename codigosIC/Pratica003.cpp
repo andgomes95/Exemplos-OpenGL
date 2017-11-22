@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
     window = glutCreateWindow("Pratica 03 - FullScreen"); // Cria Janela com nome especificado
     glutInitWindowSize(640, 640);   // Seta resolução
     glutInitWindowPosition(0, 0); // Posição inicial na tela
-    //glutFullScreen();//Seta FullScreen
+    glutFullScreen();//Seta FullScreen
     glutDisplayFunc(display);
     glutIdleFunc(&display);
     glutKeyboardFunc(&keyPressed);

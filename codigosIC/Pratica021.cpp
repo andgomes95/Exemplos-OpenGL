@@ -9,16 +9,6 @@ int window;
 GLfloat xRotated, yRotated, zRotated,xPosition;
 GLdouble size=1;
 
-void drawPoint(){
-    glBegin(GL_LINES);
-    glColor3f(0.8f,0.2f,0.6f);
-    for(int i=0;i<20;i++){
-        for(int j=0;j<20;j++){
-            glVertex2f(0.1f*(float)i-1.0f,0.1f*(float)j-1.0f);
-        }
-    }
-    glEnd();
-}
 void display(void)
 {
 
@@ -47,23 +37,7 @@ void display(void)
     /*******AQUI MODIFICAÇÃO PRINCIPAL*******/
     glutSolidTeapot(1.0f);
     glPopMatrix();
-    // Flush buffers to screen
-
-   // glRotatef(45,1.0,0.0,0.0);
-    //glRotatef(1.0-xRotated,1.0,0.0,0.0);
-    //glRotatef(1.0 - yRotated,0.0,1.0,0.0);
-    //glRotatef(1.0 - zRotated,0.0,0.0,1.0);
-    glTranslatef(xPosition,0.0,0.0);
-    
-    drawPoint();
-
-    //glRotatef(0.0,1.0,0.0,0.0);
-    //glRotatef(0.0,0.0,1.0,0.0);
-    //glRotatef(0.0,0.0,0.0,1.0);
-    glTranslatef(0.0,0.0,0.0);
-    glColor3f(xPosition, 0.2, 0.1); 
-    glutSolidCube(1.0f); //double tamanho de uma aresta
-
+ 
     glFlush();        
     // sawp buffers called because we are using double buffering 
    // glutSwapBuffers();
@@ -110,7 +84,7 @@ int main (int argc, char **argv)
     // window size
     glutInitWindowSize(400,350);
     // create the window 
-    glutCreateWindow("Pratica 20 - glutSolidIcosahedron");
+    glutCreateWindow("Pratica 21 - glutSolidTeapot");
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     xRotated = yRotated = zRotated = 30.0;
     xPosition = -1.0f;

@@ -28,9 +28,8 @@ void display(void)
     glRotatef(xRotated,1.0,0.0,0.0);
     // rotation about Y axis
     glRotatef(yRotated,0.0,1.0,0.0);
-    glColor3f(0.8, 0.2, 0.1); 
     // rotation about Z axis
-    glRotatef(zRotated,0.0,0.0,1.0);
+//    glRotatef(zRotated,0.0,0.0,1.0);
     // scaling transfomation 
     glScalef(1.0,1.0,1.0);
     // built-in (glut library) function , draw you a Teapot.
@@ -67,9 +66,9 @@ void reshapeFunc(int x, int y)
 void idleFunc(void)
 {
  
-     xRotated += 0.01;
-     yRotated += 0.01;
-     zRotated += 0.01;
+     xRotated += 0.0;
+     yRotated += 0.0;
+     zRotated += 0.0;
      
     display();
 }
@@ -85,7 +84,7 @@ int main (int argc, char **argv)
     glutInitWindowSize(400,350);
     // create the window 
     glutCreateWindow("Pratica 14 - Cubo");
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     xRotated = yRotated = zRotated = 30.0;
     glClearColor(0.0,0.0,0.0,0.0);
     //Assign  the function used in events

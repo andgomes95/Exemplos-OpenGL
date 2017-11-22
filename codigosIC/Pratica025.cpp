@@ -9,6 +9,7 @@
 int window;
 GLfloat angle, fAspect;
 GLfloat rotatey=0.0,rotatex1=0.0,rotatex2=0.0,prox=1.0;
+void UpdateProjection(GLboolean toggle);
 void drawBrace(){
     glTranslatef(0.0,1.5,0.0);
     glPushMatrix();
@@ -127,16 +128,38 @@ void Inicializa (void)
 }
 
 // Função usada para especificar o volume de visualização
-void EspecificaParametrosVisualizacao(void)
+void EspecificaParametrosVisualizacao(GLboolean toogle)
 {
-	// Especifica sistema de coordenadas de projeção
-	glMatrixMode(GL_PROJECTION);
-	// Inicializa sistema de coordenadas de projeção
-	glLoadIdentity();
-
-	// Especifica a projeção perspectiva
-    gluPerspective(angle,fAspect,0.4,500);
+  UpdateProjection(toogle);
 }
+void UpdateProjection(GLboolean toggle)
+{
+  static GLboolean s_usePerspective = GL_TRUE;
+
+  // toggle the control variable if appropriate
+  if (toggle)
+    s_usePerspective = !s_usePerspective;
+
+  // select the projection matrix and clear it out
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+
+  // choose the appropriate projection based on the currently toggled mode
+  if (s_usePerspective)
+  {
+    // set the perspective with the appropriate aspect ratio
+    gluPerspective(angle,fAspect,5,500);
+  }
+  else
+  {
+    // set up an orthographic projection with the same near clip plane
+    glOrtho(-10*fAspect, 10*fAspect, -10, 10, 0.5, 500);
+  }
+
+  // select modelview matrix and clear it out
+  glMatrixMode(GL_MODELVIEW);
+} // end UpdateProjection
+
 
 // Função callback chamada quando o tamanho da janela é alterado
 void AlteraTamanhoJanela(GLsizei w, GLsizei h)
@@ -150,7 +173,7 @@ void AlteraTamanhoJanela(GLsizei w, GLsizei h)
 	// Calcula a correção de aspecto
 	fAspect = (GLfloat)w/(GLfloat)h;
 
-	EspecificaParametrosVisualizacao();
+	EspecificaParametrosVisualizacao(false);
 }
 
 // Função callback chamada para gerenciar eventos do mouse
@@ -164,14 +187,15 @@ void GerenciaMouse(int button, int state, int x, int y)
 		if (state == GLUT_DOWN) {  // Zoom-out
 			if (angle <= 130) angle += 5;
 		}
-	EspecificaParametrosVisualizacao();
+    UpdateProjection(false);
 	glutPostRedisplay();
 }
 void idleFunc(void){
     display();
 }void keyPressed(unsigned char key, int x, int y) {
-    usleep(100);
-    if (key == ESCAPE){
+  GLboolean toogle = false;
+  usleep(100);
+   if (key == ESCAPE){
       glutDestroyWindow(window);
       exit(0);
   }else if(key == 97){
@@ -194,7 +218,10 @@ void idleFunc(void){
       if(prox < 1.0){
           prox += 0.01;
       }
-  }
+  }else if (key == 104){
+      toogle = !toogle;
+    }
+  EspecificaParametrosVisualizacao(toogle);
 }
 
 // Programa Principal

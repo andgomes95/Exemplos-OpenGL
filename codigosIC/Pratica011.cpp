@@ -13,7 +13,7 @@ void drawPoint(){
 	glVertex2f(-0.2f,-0.4f);
 	glVertex2f(-0.3f,0.6f);
 	glVertex2f(-0.5f,0.6f);
-	//glVertex2f(-0.5f,0.8f);
+	glVertex2f(-0.5f,0.8f);
 	glEnd();
 }
 void keyPressed(unsigned char key, int x, int y) {

@@ -29,7 +29,7 @@ void display(void)
     glLoadIdentity();
     // traslate the draw by z = -4.0
     // Note this when you decrease z like -8.0 the drawing will looks far , or smaller.
-    glTranslatef(0.0,0.0,-10.0);
+    glTranslatef(0.0,0.0,-4.5);
     // Red color used to draw.
     glPushMatrix();
     glColor3f(0.8, 0.2, 0.1); 
@@ -38,24 +38,14 @@ void display(void)
     glRotatef(xRotated,1.0,0.0,0.0);
     // rotation about Y axis
   //  glRotatef(yRotated,0.0,1.0,0.0);
-    glColor3f(0.8, 0.2, 0.1); 
-    // rotation about Z axis
-//glRotatef(zRotated,0.0,0.0,1.0);
-    // scaling transfomation 
+    glColor3f(0.8, 0.2, 0.1);  
     glScalef(1.0,1.0,1.0);
     // built-in (glut library) function , draw you a Teapot.
     /*******AQUI MODIFICAÇÃO PRINCIPAL*******/
     glutSolidTeapot(1.0f);
     glPopMatrix();
     // Flush buffers to screen
-
-   // glRotatef(45,1.0,0.0,0.0);
-    //glRotatef(1.0-xRotated,1.0,0.0,0.0);
-    //glRotatef(1.0 - yRotated,0.0,1.0,0.0);
-    //glRotatef(1.0 - zRotated,0.0,0.0,1.0);
     glPushMatrix();
-    glColor3f(0.5f,0.4f,0.3f);
-    glRotatef(yRotated,0.0,1.0,0.0);
     glTranslatef(xPosition,0.0,0.0);
     
     drawPoint();
@@ -64,14 +54,13 @@ void display(void)
     //glRotatef(0.0,0.0,1.0,0.0);
     //glRotatef(0.0,0.0,0.0,1.0);
     glPushMatrix();
-    glTranslatef(0.0,0.0,0.0);
-    glRotatef(zRotated,0.0,0.0,1.0);
-    glColor3f(xPosition, 0.2, 0.1); 
-    glutSolidCube(2.0f); //double tamanho de uma aresta
+    glTranslatef(0.0,xPosition,0.0);
+    glColor3f(xPosition, 0.6, 0.1);
+    glutSolidCube(1.0f); //double tamanho de uma aresta
     glPopMatrix();
     glFlush();        
     // sawp buffers called because we are using double buffering 
-    glutSwapBuffers();
+   // glutSwapBuffers();
 }
 void keyPressed(unsigned char key, int x, int y) {
     usleep(100);
@@ -97,7 +86,7 @@ void reshapeFunc(int x, int y)
 
 void idleFunc(void)
 {
-    // xPosition = (xPosition < 1.0f)? xPosition + 0.01f : -1.0f;
+     xPosition = (xPosition < 1.0f)? xPosition + 0.01f : -1.0f;
      xRotated += 0.01;
      yRotated += 0.01;
      zRotated += 0.01;
@@ -113,14 +102,12 @@ int main (int argc, char **argv)
     //double buffering used to avoid flickering problem in animation
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);  
     // window size
-
     glutInitWindowSize(400,350);
     // create the window 
-    glutCreateWindow("Pratica 20 - glutSolidIcosahedron");
+    glutCreateWindow("Pratica 22 - Movimentação objetos");
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     xRotated = yRotated = zRotated = 30.0;
     xPosition = -1.0f;
-    glutFullScreen();
     glClearColor(0.0,0.0,0.0,0.0);
     //Assign  the function used in events
     glutDisplayFunc(display);

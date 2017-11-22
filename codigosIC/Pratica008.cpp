@@ -8,16 +8,14 @@ int window;
 void drawPoint(){
 	glBegin(GL_POLYGON);
 	glColor3f(0.8f,0.2f,0.0);
-	glVertex2f(0.1f,0.1f);
-	glVertex2f(0.9f,0.3f);
-	glVertex2f(0.8f,0.2f);
-	glVertex2f(0.7f,0.4f);
-	glVertex2f(0.6f,0.3f);
-	glVertex2f(0.5f,0.4f);
-	glVertex2f(0.4f,0.3f);
-	glVertex2f(0.3f,0.4f);
-	glVertex2f(0.2f,0.1f);
-	glVertex2f(0.1f,1.6f);
+  glVertex2f(0.2f,0.4f);
+  glVertex2f(-0.2f,0.4f);
+  glVertex2f(-0.2f,-0.4f);
+  glVertex2f(0.2f,-0.4f);
+  glVertex2f(-0.3f,0.6f);
+  glVertex2f(-0.5f,0.6f);
+  glVertex2f(-0.5f,0.8f);
+  glVertex2f(-0.3f,0.8f);
 	glEnd();
 }
 void keyPressed(unsigned char key, int x, int y) {

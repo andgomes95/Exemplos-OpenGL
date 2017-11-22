@@ -1,6 +1,6 @@
 # Como Compilar
 
-g++ Pratica*.cpp -o pratica -lX11 -lXi -lXmu -lglut -lGL -lGLU -lm 
+g++ Pratica*.cpp -o pratica -lX11 -lglut -lGL -lGLU -lm 
 
 - Pratica 001 - Abrir Janelas
 
@@ -22,9 +22,9 @@ g++ Pratica*.cpp -o pratica -lX11 -lXi -lXmu -lglut -lGL -lGLU -lm
 
 - Pratica 010 - Pologonos de 3 lados (GL_TRIANGLES)
 
-- Pratica 011 - GL_TRIANGULE_STRIP
+- Pratica 011 - GL_TRIANGULE_STRIP (fecha triangulo com ultimos vertices)
 
-- Pratica 012 - GL_TRIANGULE_FAN
+- Pratica 012 - GL_TRIANGULE_FAN (fecha triangulo com vertices mais próximos)
 
 - Pratica 013 - glutSolidSphere
 
@@ -44,7 +44,7 @@ g++ Pratica*.cpp -o pratica -lX11 -lXi -lXmu -lglut -lGL -lGLU -lm
 
 - Pratica 021 - Teapot
 
-- Pratica 022 - Rotação de objetos diferentes 
+- Pratica 022 - Rotação de objetos diferentes
 
 - Pratica 023 - Rotação de objetos diferentes controlado por teclado (com A e D)
 
@@ -58,5 +58,6 @@ g++ Pratica*.cpp -o pratica -lX11 -lXi -lXmu -lglut -lGL -lGLU -lm
 
 - Pratica 028 - Texturização do Plano de Fundo
 
+- Pratica 029 - 
 
-
+- Pratica 030 - Mudança de perspectiva

@@ -25,9 +25,9 @@ void display(void)
     glColor3f(0.8, 0.2, 0.1); 
     // changing in transformation matrix.
     // rotation about X axis
-    glRotatef(xRotated,1.0,0.0,0.0);
+    glRotatef(-70,1.0,0.0,0.0);
     // rotation about Y axis
-    glRotatef(yRotated,0.0,1.0,0.0);
+    //glRotatef(yRotated,0.0,1.0,0.0);
     glColor3f(0.8, 0.2, 0.1); 
     // rotation about Z axis
     glRotatef(zRotated,0.0,0.0,1.0);

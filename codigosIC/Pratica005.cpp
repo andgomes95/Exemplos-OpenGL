@@ -5,14 +5,33 @@
 #include <stdio.h>
 #define ESCAPE 27 //Valor em ASCII do Esc
 int window;
-void drawPoint(){
+void ReSizeGLScene(int Width, int Height)
+{
+  if (Height==0)				// Prevent A Divide By Zero If The Window Is Too Small
+    Height=1;
+
+  glViewport(0, 0, Width, Height);		// Reset The Current Viewport And Perspective Transformation
+
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+
+  gluPerspective(50.0f,(GLfloat)Width/(GLfloat)Height,0.1f,100.0f);
+  glMatrixMode(GL_MODELVIEW);
+}
+void drawQuadrado(){
 	glBegin(GL_LINES);
-	glColor3f(0.8f,0.2f,0.0);
-	for(int i=0;i<20;i++){
-		for(int j=0;j<20;j++){
-			glVertex2f(0.1f*(float)i-1.0f,0.1f*(float)j-1.0f);
-		}
-	}
+	    glVertex3f(0.5f,0.5f,0.0f);
+        glVertex3f(-0.5f,0.5f,0.0f);
+        glVertex3f(-0.5f,-0.5f,0.0f);
+        glVertex3f(0.5f,-0.5f,0.0f);
+	glEnd();
+}
+
+void drawTriangulo(){
+    glBegin(GL_LINES);
+	    glVertex3f(0.5f,0.0f,0.0f);
+        glVertex3f(0.0f,1.0f,0.0f);
+        glVertex3f(-0.5f,0.0f,0.0f);
 	glEnd();
 }
 void keyPressed(unsigned char key, int x, int y) {
@@ -24,20 +43,30 @@ void keyPressed(unsigned char key, int x, int y) {
 }
 void display(){
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Seta Background
-  glClear(GL_COLOR_BUFFER_BIT);         // Limpa o collor buffer
-  //glTranslatef(0.0f,0.0f,-1.0f);      //muda a perspectiva
-  drawPoint();
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);         // Limpa o collor buffer
+  glPushMatrix();
+  glTranslatef(1.0f,1.0f,-6.0f);
+  glRotatef(45,0.0f,0.0f,1.0);
+  glScalef(2.0f,3.0f,0.0f);
+  drawQuadrado();
+  glPopMatrix();
+  glPushMatrix();
+  glTranslatef(1.0f,1.0f,-6.0f);
+  glRotatef(180,0.0f,0.0f,1.0);
+  glScalef(2.0f,3.0f,0.0f);
+  drawTriangulo();
+  glPopMatrix();
+//  glTranslatef(0.0f,0.0f,-6.0f);
+   
   glutSwapBuffers();  // Renderizar
 }
 int main(int argc, char** argv) {
     glutInit(&argc, argv);                 // Initialize GLUT
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);  
-    window = glutCreateWindow("Pratica 05 - GL_LINES"); // Cria Janela com nome especificado
-    glutInitWindowSize(640, 640);   // Seta resolução
-    glutInitWindowPosition(0, 0); // Posição inicial na tela
-    glutFullScreen();//Seta FullScreen
+    glutInitWindowSize(640, 480);   // Seta resolução
+    window = glutCreateWindow("Pratica 005"); // Cria Janela com nome especificado
     glutDisplayFunc(display);
-    glutIdleFunc(&display);
+    glutReshapeFunc(&ReSizeGLScene);
     glutKeyboardFunc(&keyPressed);
     glutMainLoop();           
     return 0;

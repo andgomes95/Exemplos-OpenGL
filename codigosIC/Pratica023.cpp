@@ -5,8 +5,20 @@
 #include <stdio.h>
 #define ESCAPE 27 //Valor em ASCII do Esc
 int window;
-GLfloat rotate;
+
+GLfloat xRotated, yRotated, zRotated,xPosition;
 GLdouble size=1;
+
+void drawPoint(){
+    glBegin(GL_LINES);
+    glColor3f(xRotated,xPosition,-xPosition);
+    for(int i=0;i<(int)((1.0+xPosition)*20);i++){
+        for(int j=0;j<20;j++){
+            glVertex2f(0.1f*(float)i-1.0f,0.1f*(float)j-1.0f);
+        }
+    }
+    glEnd();
+}
 void display(void)
 {
 
@@ -15,27 +27,49 @@ void display(void)
     glClear(GL_COLOR_BUFFER_BIT);
     // clear the identity matrix.
     glLoadIdentity();
-    glTranslatef(0.0,0.0,-12.0);
+    // traslate the draw by z = -4.0
+    // Note this when you decrease z like -8.0 the drawing will looks far , or smaller.
+    glTranslatef(0.0,0.0,-4.5);
+    // Red color used to draw.
     glPushMatrix();
-    glRotated(rotate,0.0,1.0,0.0);
-    glRotated(rotate,1.0,0.0,0.0);
-    glutSolidCube(1.0f);
+    glColor3f(0.8, 0.2, 0.1); 
+    // changing in transformation matrix.
+    // rotation about X axis
+    glRotatef(xRotated,1.0,0.0,0.0);
+    // rotation about Y axis
+  //  glRotatef(yRotated,0.0,1.0,0.0);
+    glColor3f(0.8, 0.6, 0.4);  
+    glScalef(1.0,1.0,1.0);
+    // built-in (glut library) function , draw you a Teapot.
+    /*******AQUI MODIFICAÇÃO PRINCIPAL*******/
+    glutSolidTeapot(1.0f);
     glPopMatrix();
-    glTranslatef(0.0f,1.0f,0.0f);
-    glutSolidSphere(0.5f,30,30);
-    glutSwapBuffers();
+    // Flush buffers to screen
+    glPushMatrix();
+    glTranslatef(xPosition,0.0,0.0);
+    
+    drawPoint();
+    glPopMatrix();
+    //glRotatef(0.0,1.0,0.0,0.0);
+    //glRotatef(0.0,0.0,1.0,0.0);
+    //glRotatef(0.0,0.0,0.0,1.0);
+    glPushMatrix();
+    glTranslatef(0.0,xPosition,0.0);
+    glColor3f(xPosition, 0.6, 0.1);
+    glutSolidCube(1.0f); //double tamanho de uma aresta
+    glPopMatrix();
+    glFlush();        
+    // sawp buffers called because we are using double buffering 
+   // glutSwapBuffers();
 }
 void keyPressed(unsigned char key, int x, int y) {
     usleep(100);
     if (key == ESCAPE){ 
       glutDestroyWindow(window); 
       exit(0);                   
-    }else if(key == 97){
-        rotate += 1.0;
-        display();
-    }else if(key == 100){
-        rotate -= 1.0;
-    }//se pressionar esc, saiu
+    }else if(key == 97){//se pressionar esc, saiu
+        xPosition = (xPosition < 1.0f)? xPosition + 0.01f : -1.0f;
+    }
 }
 void reshapeFunc(int x, int y)
 {
@@ -53,8 +87,11 @@ void reshapeFunc(int x, int y)
 }
 
 void idleFunc(void)
-{    
-    //rotate += 0.1;
+{
+     xRotated += 0.01;
+     yRotated += 0.01;
+     zRotated += 0.01;
+     
     display();
 }
 
@@ -66,13 +103,12 @@ int main (int argc, char **argv)
     //double buffering used to avoid flickering problem in animation
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);  
     // window size
-
     glutInitWindowSize(400,350);
     // create the window 
-    glutCreateWindow("Pratica 20 - glutSolidIcosahedron");
-    rotate = 30.0;
+    glutCreateWindow("Pratica 23 - Movimentacao objetos");
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    glutFullScreen();
+    xRotated = yRotated = zRotated = 30.0;
+    xPosition = -1.0f;
     glClearColor(0.0,0.0,0.0,0.0);
     //Assign  the function used in events
     glutDisplayFunc(display);
