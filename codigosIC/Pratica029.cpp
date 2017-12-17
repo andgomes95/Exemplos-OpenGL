@@ -6,7 +6,7 @@
 #include <unistd.h>     // needed to sleep
 #include <math.h>
 #include <stdio.h>
-#include "SOIL.h"
+#include "soil.h"
 GLfloat rotate=0.0,rotatey=0.0;
 
 #define ESCAPE 27

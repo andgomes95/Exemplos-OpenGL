@@ -31,7 +31,7 @@ void display(void)
     glColor3f(1, 0, 00); 
     // built-in (glut library) function , draw you a Teapot.
     /*******AQUI MODIFICAÇÃO PRINCIPAL*******/
-    glutSolidSphere(1.0f,100,200); //double raio, int pedaços em volta do eixo Z,  int pedaços percorrendo o eixo Z
+    glutSolidSphere(1.0f,200,200); //double raio, int pedaços em volta do eixo Z,  int pedaços percorrendo o eixo Z
     // Flush buffers to screen
     glFlush();        
     // sawp buffers called because we are using double buffering 
@@ -80,7 +80,7 @@ int main (int argc, char **argv)
     glutInitWindowSize(400,350);
     // create the window 
     glutCreateWindow("Pratica 13 - Esfera");
-    glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     xRotated = yRotated = zRotated = 30.0;
     glClearColor(0.0,0.0,0.0,0.0);
     //Assign  the function used in events

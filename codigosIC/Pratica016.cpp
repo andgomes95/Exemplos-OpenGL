@@ -35,7 +35,7 @@ void display(void)
     glScalef(1.0,1.0,1.0);
     // built-in (glut library) function , draw you a Teapot.
     /*******AQUI MODIFICAÇÃO PRINCIPAL*******/
-    glutSolidTorus(0.5f,1.0f,10,10); //double raio da base, double altura, int 
+    glutSolidTorus(0.5f,1.0f,100,100); //double raio da base, double altura, int 
     // Flush buffers to screen
      
     glFlush();        

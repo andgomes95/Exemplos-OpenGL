@@ -7,7 +7,7 @@
 int window;
 void drawPoint(){
 	glBegin(GL_POINTS);
-	glColor3f(0.8f,0.2f,0.0);
+	glColor3f(1.0f,1.0f,1.0f);
 	for(int i=0;i<20;i++){
 		for(int j=0;j<20;j++){
 			glVertex2f(0.1f*(float)i-1.0f,0.1f*(float)j-1.0f);

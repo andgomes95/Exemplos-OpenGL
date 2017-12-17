@@ -28,7 +28,7 @@ void display(void)
     glRotatef(xRotated,1.0,0.0,0.0);
     // rotation about Y axis
     glRotatef(yRotated,0.0,1.0,0.0);
-    glColor3f(0.8, 0.2, 0.1); 
+    glColor3f(0.8, 0.9, 0.7); 
     // rotation about Z axis
     glRotatef(zRotated,0.0,0.0,1.0);
     // scaling transfomation 

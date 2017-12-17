@@ -1,9 +1,10 @@
 #include <GL/glut.h> 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);                 // Initialize GLUT
-    glutCreateWindow("Pratica 01 - Abrir Janela"); // Cria Janela com nome especificado
+    glutInitWindowPosition(1000, 0);
     glutInitWindowSize(640, 640);   // Seta resolução
-    glutInitWindowPosition(1000, 0); // Posição inicial na tela
+    glutCreateWindow("Pratica 01 - Abrir Janela"); // Cria Janela com nome especificado
+    
     glutMainLoop();           
     return 0;
 }

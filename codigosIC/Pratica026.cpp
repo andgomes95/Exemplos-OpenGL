@@ -54,6 +54,21 @@ void drawHuge(){
     glTranslatef(0.0,-0.2f,0.0);
     hand();
 }
+void drawLegDeslocated(){
+    anteHuge();
+    glTranslatef(0.0,-0.3f,0.0);
+    glPushMatrix();
+    glColor3f(0.5f,1.0f,0.5f);
+    glScalef(0.075f,0.075f,0.075f);
+    glutSolidSphere(1.0f,10,10);
+    glPopMatrix();
+    glTranslatef(0.25f,0.0,0.0);
+    glRotatef(90,0,0,1);
+    anteHuge();
+    glTranslatef(0.00f,-0.2f,0.0);
+  //  glTranslatef(0.2f,0.0,0.0);
+    hand();
+}
 void drawLeg(){
     huge();
     glTranslatef(0.0,-0.2f,0.0);
@@ -87,9 +102,11 @@ void display(void){
     glRotatef(22,0.0,1.0,0.0);
     glRotatef(rotate,0.0f,1.0f,0.0f);
     glRotatef(rotatey,1.0f,0.0f,0.0f);
+    /*
     drawBody();
     putHuges();
-    putLegs();
+    putLegs();*/
+    drawLegDeslocated();
     glFlush();
     glutSwapBuffers();
 }
@@ -99,9 +116,9 @@ void keyPressed(unsigned char key, int x, int y) {
       glutDestroyWindow(window);
       exit(0);
   }else if(key == 97){
-      rotate += 1.0f;
+      rotate += 2.0f;
   }else if(key == 115){
-      rotatey += 1.0f;
+      rotatey += 2.0f;
   }
 }
 void reshapeFunc(int x, int y){
