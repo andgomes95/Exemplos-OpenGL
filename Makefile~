@@ -6,7 +6,6 @@ Pratica001:
 	./pratica
 Pratica002:
 	g++ codigosIC/Pratica002.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
-	./pratica
 Pratica003:
 	g++ codigosIC/Pratica003.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
 	./pratica

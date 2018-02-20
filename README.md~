@@ -1,10 +1,6 @@
-# Como instalar o OpenGL
-
- sudo apt-get install freeglut3-dev
-
 # Como Compilar
 
-make nomedapratica
+g++ Pratica*.cpp -o pratica -lX11 -lglut -lGL -lGLU -lm 
 
 - Pratica 001 - Abrir Janelas
 
@@ -48,20 +44,20 @@ make nomedapratica
 
 - Pratica 021 - Teapot
 
-- Pratica 022 - Chuva
+- Pratica 022 - Rotação de objetos diferentes
 
-- Pratica 023 - Movimentação de objetos diferentes controlado por teclado (com A)
+- Pratica 023 - Rotação de objetos diferentes controlado por teclado (com A e D)
 
 - Pratica 024 - Braço Mecanico
 
 - Pratica 025 - Braço Mecanico com Iluminação
 
-- Pratica 026 - Bob Esponja (error)
+- Pratica 026 - Bob Esponja
 
 - Pratica 027 - Bob Esponja com Iluminação
 
-- Pratica 028 - Texturização do Plano de Fundo (error)
+- Pratica 028 - Texturização do Plano de Fundo
 
-- Pratica 029 - (error)
+- Pratica 029 - 
 
 - Pratica 030 - Mudança de perspectiva
