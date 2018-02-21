@@ -132,7 +132,7 @@ void AlteraTamanhoJanela(GLsizei w, GLsizei h)
  
 	// Calcula a correção de aspecto
 	fAspect = (GLfloat)w/(GLfloat)h;
-
+ 
 	EspecificaParametrosVisualizacao(false);
 }
 

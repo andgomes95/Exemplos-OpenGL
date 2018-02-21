@@ -13,6 +13,8 @@ int texture[2];
 
 int window;
 int LoadGLTextures(){
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
     texture[0] = SOIL_load_OGL_texture
         (
         "media/lena.bmp",
@@ -32,8 +34,8 @@ int LoadGLTextures(){
 }
 
 void InitGL(int Width, int Height){
-    LoadGLTextures();
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    LoadGLTextures();
     glClearDepth(1.0);
     glDepthFunc(GL_LESS);
     glEnable(GL_DEPTH_TEST);

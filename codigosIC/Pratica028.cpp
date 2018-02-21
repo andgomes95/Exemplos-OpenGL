@@ -33,8 +33,9 @@ int LoadGLTextures(){
 }
 
 void InitGL(int Width, int Height){
+    glClearColor(.0f, 1.0f, 1.0f, 0.0f);
     LoadGLTextures();
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    
     glClearDepth(1.0);
     glDepthFunc(GL_LESS);
     glEnable(GL_DEPTH_TEST);
