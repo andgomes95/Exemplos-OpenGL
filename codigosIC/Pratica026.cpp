@@ -102,11 +102,10 @@ void display(void){
     glRotatef(22,0.0,1.0,0.0);
     glRotatef(rotate,0.0f,1.0f,0.0f);
     glRotatef(rotatey,1.0f,0.0f,0.0f);
-    /*
     drawBody();
     putHuges();
-    putLegs();*/
-    drawLegDeslocated();
+    putLegs();
+    //drawLegDeslocated();
     glFlush();
     glutSwapBuffers();
 }
@@ -135,7 +134,7 @@ int main (int argc, char **argv){
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(800,600);
-    glutCreateWindow("Pratica 25 - Bob Esponja");
+    glutCreateWindow("Pratica 26 - Bob Esponja");
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glClearColor(0.5,0.5,1.0,0.5);
     glutDisplayFunc(display);
