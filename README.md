@@ -62,6 +62,12 @@ make nomedapratica
 
 - Pratica 028 - Texturização do Plano de Fundo (error)
 
-- Pratica 029 - (error)
+- Pratica 029 - Texturização em um cubo
+
+- Pratica 030 - Mudança de visualização de ortogonal para perspectiva
+
+- Pratica 031 - smooth
+
+- Pratica 032 - Fogos: particulas com cubos
 
 - Pratica 030 - Mudança de perspectiva

@@ -1,4 +1,3 @@
-//g++ DuckHunt.c -o a -lm -lGL -lGLU -lglut
 
 #include <GL/glut.h>    // Header File For The GLUT Library
 #include <GL/gl.h>  // Header File For The OpenGL32 Library
@@ -6,7 +5,7 @@
 #include <unistd.h>     // needed to sleep
 #include <math.h>
 #include <stdio.h>
-#include "soil.h"
+#include "SOIL.h"
 GLfloat rotate=0.0,rotatey=0.0;
 
 #define ESCAPE 27
@@ -16,7 +15,7 @@ int window;
 int LoadGLTextures(){
     texture[0] = SOIL_load_OGL_texture
         (
-        "media/aaaaa.bmp",
+        "media/lena.bmp",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y

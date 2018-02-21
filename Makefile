@@ -83,11 +83,17 @@ Pratica027:
 	g++ codigosIC/Pratica027.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
 	./pratica 
 Pratica028:
-	g++ codigosIC/Pratica028.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
+	g++ codigosIC/Pratica028.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm -lSOIL
 	./pratica
 Pratica029:
-	g++ codigosIC/Pratica029.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
+	g++ codigosIC/Pratica029.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm -lSOIL
 	./pratica 
 Pratica030:
 	g++ codigosIC/Pratica030.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
+	./pratica 
+Pratica031:
+	g++ codigosIC/Pratica031.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
+	./pratica 
+Pratica032:
+	g++ codigosIC/Pratica032.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
 	./pratica 

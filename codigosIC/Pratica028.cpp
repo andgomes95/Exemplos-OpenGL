@@ -16,7 +16,7 @@ int window;
 int LoadGLTextures(){
     texture[0] = SOIL_load_OGL_texture
         (
-        "media/aaaaa.bmp",
+        "media/lena.bmp",
         SOIL_LOAD_AUTO,
         SOIL_CREATE_NEW_ID,
         SOIL_FLAG_INVERT_Y
