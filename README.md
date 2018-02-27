@@ -70,4 +70,4 @@ make nomedapratica
 
 - Pratica 032 - Fogos: particulas com cubos
 
-- Pratica 030 - Mudança de perspectiva
+- Pratica 033 - Esqueleto (em andamento)
