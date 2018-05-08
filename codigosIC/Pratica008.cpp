@@ -3,20 +3,17 @@
 #include <GL/glu.h> // Header File For The GLu32 Library
 #include <unistd.h> 
 #include <stdio.h>
+#include <math.h>
 #define ESCAPE 27 //Valor em ASCII do Esc
 int window;
-void drawPoint(){
-	glBegin(GL_POLYGON);
-	glColor3f(0.8f,0.2f,0.0);
-  glVertex2f(0.2f,0.4f);
-  glVertex2f(-0.2f,0.4f);
-  glVertex2f(-0.2f,-0.4f);
-  glVertex2f(0.2f,-0.4f);
-  glVertex2f(-0.3f,0.6f);
-  glVertex2f(-0.5f,0.6f);
-  glVertex2f(-0.5f,0.8f);
-  glVertex2f(-0.3f,0.8f);
-	glEnd();
+void mosaicgraph_draw_circle(float radius,float elipse_x,float elipse_y){
+    glColor3f(0.8f,0.2f,0.0);
+    glBegin(GL_POLYGON);       
+        for (int i=0; i < 360; i++){
+            float degInRad = i*3.14159/180;
+            glVertex2f(cos(degInRad)*(radius+elipse_x),sin(degInRad)*(radius+elipse_y));
+        }     
+    glEnd();
 }
 void keyPressed(unsigned char key, int x, int y) {
     usleep(100);
@@ -29,7 +26,7 @@ void display(){
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Seta Background
   glClear(GL_COLOR_BUFFER_BIT);         // Limpa o collor buffer
   //glTranslatef(0.0f,0.0f,-1.0f);      //muda a perspectiva
-  drawPoint();
+  mosaicgraph_draw_circle(0.4,0.2,-0.2);
   glutSwapBuffers();  // Renderizar
 }
 int main(int argc, char** argv) {

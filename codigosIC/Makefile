@@ -1,14 +1,14 @@
 all:
-	g++ Pratica001.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm
+	g++ Pratica001.cpp -o pratica -lglut -lGL -lGLU -lm
 	./pratica
 Pratica001:
-	g++ Pratica001.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
+	g++ Pratica001.cpp -o pratica -lglut -lGL -lGLU -lm 
 	./pratica
 Pratica002:
-	g++ Pratica002.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
+	g++ Pratica002.cpp -o pratica -lglut -lGL -lGLU -lm 
 	./pratica
 Pratica003:
-	g++ Pratica003.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
+	g++ Pratica003.cpp -o pratica -lglut -lGL -lGLU -lm 
 	./pratica
 Pratica004:
 	g++ Pratica004.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
@@ -41,7 +41,7 @@ Pratica013:
 	g++ Pratica013.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
 	./pratica 
 Pratica014:
-	g++ Pratica014.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
+	g++ Pratica014.cpp -o pratica -lglut -lGL -lGLU -lm 
 	./pratica 
 Pratica015:
 	g++ Pratica015.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
