@@ -98,5 +98,8 @@ Pratica032:
 	g++ Pratica032.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm
 	./pratica
 Pratica034:
-	g++ Pratica034.cpp -o pratica -lglut -lGL -lGLU -lm 
+	g++ Pratica034.cpp -o pratica -lglut -lGL -lGLU -lm
+	./pratica
+Pratica035:
+	g++ Pratica035.cpp -o pratica -lglut -lGL -lGLU -lm 
 	./pratica

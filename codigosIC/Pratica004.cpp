@@ -37,7 +37,6 @@ int main(int argc, char** argv) {
     glutInitWindowPosition(0, 0); // Posição inicial na tela
     glutFullScreen();//Seta FullScreen
     glutDisplayFunc(display);
-		glutReshapeFunc(reshapeFunc);
     glutIdleFunc(&display);
     glutKeyboardFunc(&keyPressed);
     glutMainLoop();
