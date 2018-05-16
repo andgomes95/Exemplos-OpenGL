@@ -8,7 +8,8 @@
 #include <math.h>
 #define ESCAPE 27 //Valor em ASCII do Esc
 int window;
-GLfloat tamCircle;
+GLfloat tamCircle,movX, movY;
+GLint flag;
 int onMouse;
 typedef struct mosaicgraph_window{
         float x;
@@ -61,8 +62,12 @@ void display(){
   glMatrixMode(GL_MODELVIEW);
   glClear(GL_COLOR_BUFFER_BIT);         // Limpa o collor buffer
   glLoadIdentity();
-
+  if(flag ==1){
+    glTranslatef(movX,movY,0.0);
+  }
+  glPushMatrix();
   mosaicgraph_draw_circle(tamCircle);
+  glPopMatrix();
 
   glutSwapBuffers();
   glFlush();
@@ -79,9 +84,19 @@ void keyPressed(unsigned char key, int x, int y) {
 void mouseClicks(int button, int state, int x, int y) {
     if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
         onMouse = 1;
+        flag = 1;
     }else if(button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
       onMouse = 0;
     }
+}
+void MouseAndandoNaoPressionado (int x, int y)
+{
+    movX = ((float)x-250.0)/250.0;
+    movY = ((float)y-250.0)/250.0;
+}
+void MouseAndandoPressionado (int x, int y)
+{
+    printf("Mouse ANDANDO pressionado na janela. Posição: (%d, %d)\n", x,y);
 }
 void idle(){
     if(onMouse ==1){
@@ -100,6 +115,11 @@ int main (int argc, char** argv){
     glutDisplayFunc(display);
     glutIdleFunc(&idle);
     glutMouseFunc(mouseClicks);
+    // movimento SEM botão pressionado
+    glutPassiveMotionFunc(MouseAndandoNaoPressionado);
+
+    // movimento COM botão pressionado
+    glutMotionFunc(MouseAndandoPressionado);
     glutKeyboardFunc(&keyPressed);
     glutMainLoop();
 	return 0;
