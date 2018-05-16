@@ -204,7 +204,7 @@ int main (int argc, char** argv){
     strcpy(window->title, "Main Page");
     type = 1;
     mosaicgraph_draw_window(window);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glutDisplayFunc(display);
   //  glutReshapeFunc(reshapeFunc);
 
