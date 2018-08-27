@@ -44,8 +44,10 @@ void keyPressed(unsigned char key, int x, int y) {
 void display(){
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Seta Background
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);         // Limpa o collor buffer
+  glFrustum(-1.0, 1.0, -1.0, 1.0, 0.0, 500.0);
   glPushMatrix();
-  glTranslatef(1.0f,1.0f,-6.0f);
+
+  glTranslatef(1.0f,1.0f,0.0f);
   glRotatef(45,0.0f,0.0f,1.0);
   glScalef(2.0f,3.0f,0.0f);
   drawQuadrado();

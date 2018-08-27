@@ -11,13 +11,13 @@ Pratica003:
 	g++ Pratica003.cpp -o pratica -lglut -lGL -lGLU -lm
 	./pratica
 Pratica004:
-	g++ Pratica004.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm
+	g++ Pratica004.cpp -o pratica -lglut -lGL -lGLU -lm
 	./pratica
 Pratica005:
-	g++ Pratica005.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm
+	g++ Pratica005.cpp -o pratica -lglut -lGL -lGLU -lm
 	./pratica
 Pratica006:
-	g++ Pratica006.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm
+	g++ Pratica006.cpp -o pratica -lglut -lGL -lGLU -lm
 	./pratica
 Pratica007:
 	g++ Pratica007.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm

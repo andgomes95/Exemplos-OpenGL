@@ -34,6 +34,9 @@ typedef struct mosaicgraph_window{
         int id;
         void (*process)(void *self);
 }mosaicgraph_window_t;
+float dist(float x0, float y0, float x, float y){
+    return sqrt( pow (x0 - x, 2) + pow (y0 - y, 2));
+}
 mosaicgraph_window_t * mosaicgraph_create_window(float width, float height,float x, float y){
     mosaicgraph_window_t * window = (mosaicgraph_window_t *) malloc(sizeof(mosaicgraph_window_t));
     window->fullscreen = 0;
@@ -110,7 +113,7 @@ void display(){
   if(onMouse == 1 && type == 1){
     glTranslatef(movX,movY,0.0);
     glPushMatrix();
-    mosaicgraph_draw_circle(tamCircle);
+    mosaicgraph_draw_circle(dist(movX,movY,movX0,movY0));
     glPopMatrix();
   }else if(onMouse == 1 && type == 2){
     glBegin(GL_LINES);
@@ -125,7 +128,7 @@ void display(){
       glVertex3f(movX0,movY,0.0);
     glEnd();
   }else if(onMouse == 1 && type == 4){
-    mosaicgraph_draw_semicircle(tamCircle);
+    mosaicgraph_draw_semicircle(dist(movX,movY,movX0,movY0));
   }
   glutSwapBuffers();
   glFlush();
@@ -143,6 +146,8 @@ void keyPressed(unsigned char key, int x, int y) {
       type = 3;
     }if (key == 102){
       type = 4;
+    }if (key == 103){
+      type = 5;
     }
 }
 t_obj * createObject(){
@@ -152,7 +157,7 @@ t_obj * createObject(){
   obj->x0 = movX0;
   obj->y0 = movY0;
   obj->type = type;
-  obj->tamCircle = tamCircle;
+  obj->tamCircle = dist(movX,movY,movX0,movY0);
   obj->next = NULL;
   return obj;
 }
@@ -175,6 +180,8 @@ void MouseAndandoNaoPressionado (int x, int y)
 {
     movX = (((float)x-250.0)/250.0);
     movY = -1.0*(((float)y-250.0)/250.0);
+    movX0 = movX;
+    movY0 = movY;
     //printf("%f - %f\n",movX,movY);
 }
 void MouseAndandoPressionado (int x, int y)
@@ -184,9 +191,9 @@ void MouseAndandoPressionado (int x, int y)
     //printf("Mouse ANDANDO pressionado na janela. Posição: (%d, %d)\n", x,y);
 }
 void idle(){
-    if(onMouse ==1){
+    /*if(onMouse ==1){
       tamCircle +=0.001;
-    }
+    }*/
     display();
 }
 /*void reshapeFunc(int x, int y){

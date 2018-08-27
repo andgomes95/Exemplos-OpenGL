@@ -97,3 +97,12 @@ Pratica031:
 Pratica032:
 	g++ codigosIC/Pratica032.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
 	./pratica 
+Pratica033:
+	g++ codigosIC/Pratica033.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
+	./pratica 
+Pratica034:
+	g++ codigosIC/Pratica034.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
+	./pratica 
+Pratica035:
+	g++ codigosIC/Pratica035.cpp -o pratica -lX11 -lXi -lglut -lGL -lGLU -lm 
+	./pratica 

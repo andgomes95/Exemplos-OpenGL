@@ -17,7 +17,9 @@ void drawVerticalFundo(){
     glVertex3f(0.1f*(float)i-1.0f,-1.0,-1.0);
 	}
 	glEnd();
-}
+}if (key == 102){
+      type = 4;
+    }
 void drawHorizontalFundo(){
 	glBegin(GL_LINES);
 	for(int i=0;i<21;i++){
