@@ -187,6 +187,7 @@ int main (int argc, char **argv) {
     glutInitWindowSize (500, 500);
     glutInitWindowPosition (100, 100);
     glutCreateWindow ("A basic OpenGL Window");
+    glutFullScreen();           // making the window full screen
     init();
     glutDisplayFunc (display);
     glutIdleFunc (display);
