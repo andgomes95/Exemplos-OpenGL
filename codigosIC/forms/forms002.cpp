@@ -1,5 +1,3 @@
-/* Algoritmo retirado em: https://stackoverflow.com/questions/5844858/how-to-take-screenshot-in-opengl*/
-
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -10,13 +8,18 @@
 #include <GL/glut.h>
 #include <GL/glext.h>
 
+#include <unistd.h>
+#include <iostream> // for cout
+#define ESCAPE 27 //Valor em ASCII do Esc
+int window;
+
 static GLubyte *pixels = NULL;
 static const GLenum FORMAT = GL_RGBA;
 static const GLuint FORMAT_NBYTES = 4;
 static const unsigned int HEIGHT = 500;
 static const unsigned int WIDTH = 500;
 static unsigned int nscreenshots = 0;
-static unsigned int time;
+static unsigned int timee;
 
 /* Model. */
 static double angle = 0;
@@ -39,7 +42,7 @@ static void init(void)  {
     glMatrixMode(GL_MODELVIEW);
 
     pixels = (GLubyte*)malloc(FORMAT_NBYTES * WIDTH * HEIGHT);
-    time = glutGet(GLUT_ELAPSED_TIME);
+    timee = glutGet(GLUT_ELAPSED_TIME);
     /*glutGet recupera o estado GLUT simples representado por inteiros.
     GLUT_ELAPSED_TIME: Número de milissegundos desde que glutInit chamou (ou primeira chamada para glutGet (GLUT_ELAPSED_TIME)).
     */
@@ -72,15 +75,24 @@ static void create_ppm(char *prefix, int frame_id, unsigned int width, unsigned 
 static void draw_scene() {
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
-    glRotatef(angle, 0.0f, 0.0f, -1.0f);
-    glBegin(GL_TRIANGLES);
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex3f( 0.0f,  0.5f, 0.0f);
-    glColor3f(0.0f, 1.0f, 0.0f);
-    glVertex3f(-0.5f, -0.5f, 0.0f);
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex3f( 0.5f, -0.5f, 0.0f);
+    float x,y,z;
+    int j;
+    glBegin(GL_POLYGON);
+    glColor3f(1.0,0,0);
+    for (int i=0; i < 360; i++){
+        float degInRad = i*3.14159/180;
+ //       j=0;
+//        for(j = 0; j <180;j++){
+            float degInRad2 = 20*3.14159/180;
+            x = sin(degInRad2)*cos(degInRad)*(0.2+0.05)+0.1;
+            y = sin(degInRad2)*sin(degInRad)*(0.2+0.1)-0.1;
+            z = 0.1+(0.2)*sin(degInRad);
+            glVertex3f(x,y,z);
+  //      }
+        
+    }
     glEnd();
+    
 }
 
 static void display(void) {
@@ -91,19 +103,23 @@ static void display(void) {
 }
 
 static void idle(void) {
-    int new_time = glutGet(GLUT_ELAPSED_TIME);
-    angle += angle_speed * (new_time - time) / 1000.0;
-    angle = fmod(angle, 360.0);
-    time = new_time;
     glutPostRedisplay();
 }
 
 void mouse(int button, int state, int x, int y) {
-    if (state == GLUT_DOWN) {
+    if (button == GLUT_LEFT_BUTTON) {
         puts("screenshot");
         create_ppm("tmp", nscreenshots, WIDTH, HEIGHT, 255, FORMAT_NBYTES, pixels);
         nscreenshots++;
     }
+}
+void keyPressed(unsigned char key, int x, int y) {
+    usleep(100);
+    if (key == ESCAPE){ 
+      glutDestroyWindow(window); 
+      exit(0);                   
+    }
+
 }
 
 int main(int argc, char **argv) {
@@ -111,12 +127,14 @@ int main(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutInitWindowPosition(100, 100);
+    glPolygonMode(GL_FRONT_AND_BACK,GL_POINT);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutCreateWindow(argv[0]);
     init();
     glutDisplayFunc(display);
     glutIdleFunc(idle);
     glutMouseFunc(mouse);
+    glutKeyboardFunc(&keyPressed);
     atexit(deinit);
     glutMainLoop();
     return EXIT_SUCCESS;

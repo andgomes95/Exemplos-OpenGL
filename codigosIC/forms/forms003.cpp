@@ -1,14 +1,28 @@
-/* Algoritmo retirado em: https://stackoverflow.com/questions/5844858/how-to-take-screenshot-in-opengl*/
-
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-
 #define GL_GLEXT_PROTOTYPES 1
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
 #include <GL/glext.h>
+#include <vector> 
+  
+using namespace std; 
+typedef struct color{
+    float r;
+    float g;
+    float b;
+}clr;
+typedef struct objectCanvas{
+    int type;
+    float x0;
+    float y0;
+    float raio;
+    clr color;
+}obC;
+
+vector<obC> objetos; 
 
 static GLubyte *pixels = NULL;
 static const GLenum FORMAT = GL_RGBA;
@@ -21,6 +35,9 @@ static unsigned int time;
 /* Model. */
 static double angle = 0;
 static double angle_speed = 45;
+int typeObject = 0;
+int typeColor = 0;
+float raio=0.2,distX0=0.0,distY0=0.0,distX=0.0,distY=0.0;
 
 static void init(void)  {
     glReadBuffer(GL_BACK);
@@ -68,41 +85,105 @@ static void create_ppm(char *prefix, int frame_id, unsigned int width, unsigned 
     }
     fclose(f);
 }
-
-static void draw_scene() {
+static void draw_scene(int,float,float,float,clr);
+static void display(void) {
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
-    glRotatef(angle, 0.0f, 0.0f, -1.0f);
-    glBegin(GL_TRIANGLES);
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex3f( 0.0f,  0.5f, 0.0f);
-    glColor3f(0.0f, 1.0f, 0.0f);
-    glVertex3f(-0.5f, -0.5f, 0.0f);
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex3f( 0.5f, -0.5f, 0.0f);
-    glEnd();
-}
-
-static void display(void) {
-    draw_scene();
+    for (auto i = objetos.begin(); i!= objetos.end();++i){
+        draw_scene((*i).type,(*i).x0,(*i).y0,(*i).raio,(*i).color);
+    }
     glutSwapBuffers();
     /*lê os pixels e salva na variavel "pixels"*/
     glReadPixels(0, 0, WIDTH, HEIGHT, FORMAT, GL_UNSIGNED_BYTE, pixels);
 }
 
 static void idle(void) {
-    int new_time = glutGet(GLUT_ELAPSED_TIME);
-    angle += angle_speed * (new_time - time) / 1000.0;
-    angle = fmod(angle, 360.0);
-    time = new_time;
+    glutPostRedisplay();
+}
+static void draw_circle(float x0, float y0,float raio,clr color){
+    glBegin(GL_POLYGON);
+    for (int i=0; i < 360; i++){
+        float degInRad = i*3.14159/180;
+        glColor3f(color.r,color.g,color.b);
+        glVertex2f(x0+cos(degInRad)*(raio),y0+sin(degInRad)*(raio));
+    }
+    glEnd();
+}
+static void draw_scene(int type, float x0, float y0, float raio, clr color) {
+    switch(type){
+        case 0:
+            draw_circle(x0,y0,raio,color);
+            break;        
+    }    
+}
+
+
+void changeRaio(){
+    raio = sqrt(pow(distX-distX0,2)+pow(distY-distY0,2));
+}
+
+clr createColor(){
+    clr color;
+    switch(typeColor){
+        case 0:
+            color.r = 1.0f;
+            color.g = 0.0f;
+            color.b = 1.0f;
+            break;
+        case 1:
+            color.r = 1.0f;
+            color.g = 1.0f;
+            color.b = 0.0f;
+    }
+    return color;
+}
+
+void createObjectCanvas(){
+    changeRaio();
+    obC objeto;
+    objeto.type = typeObject;
+    objeto.x0 = distX0;
+    objeto.y0 = distY0;
+    objeto.raio = raio;
+    objeto.color = createColor();
+    objetos.push_back(objeto);
+}
+
+void keyboard(unsigned char key, int x, int y)
+{
+    switch (key) {
+        case 'q':
+            typeColor = 0;
+            break;
+        case 'w':
+            typeColor = 1;
+            break;
+        case 'a': 
+            typeObject = 0;
+            break;
+        case 's':
+            typeObject = 1;
+            break;
+    }
     glutPostRedisplay();
 }
 
 void mouse(int button, int state, int x, int y) {
-    if (state == GLUT_DOWN) {
+    if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
         puts("screenshot");
         create_ppm("tmp", nscreenshots, WIDTH, HEIGHT, 255, FORMAT_NBYTES, pixels);
         nscreenshots++;
+    }
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
+        distX0 = ((float)x/(float)HEIGHT-0.5)*2;
+        distY0 = -((float)y/(float)WIDTH-0.5)*2;
+        printf("%f , %f\n", distX0, distY0);
+    }
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_UP){
+        distX = ((float)x/(float)HEIGHT-0.5)*2;
+        distY = -((float)y/(float)WIDTH-0.5)*2;
+        printf("%d , %d\n", x, y);
+        createObjectCanvas();
     }
 }
 
@@ -117,6 +198,7 @@ int main(int argc, char **argv) {
     glutDisplayFunc(display);
     glutIdleFunc(idle);
     glutMouseFunc(mouse);
+    glutKeyboardFunc(keyboard);
     atexit(deinit);
     glutMainLoop();
     return EXIT_SUCCESS;

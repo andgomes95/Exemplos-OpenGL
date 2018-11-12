@@ -1,5 +1,3 @@
-/* Algoritmo retirado em: https://stackoverflow.com/questions/5844858/how-to-take-screenshot-in-opengl*/
-
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -72,15 +70,27 @@ static void create_ppm(char *prefix, int frame_id, unsigned int width, unsigned 
 static void draw_scene() {
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
-    glRotatef(angle, 0.0f, 0.0f, -1.0f);
-    glBegin(GL_TRIANGLES);
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex3f( 0.0f,  0.5f, 0.0f);
-    glColor3f(0.0f, 1.0f, 0.0f);
-    glVertex3f(-0.5f, -0.5f, 0.0f);
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex3f( 0.5f, -0.5f, 0.0f);
+
+    glBegin(GL_POLYGON);
+    float a = 0.0, b = 0.0, c = 0.0;
+    for (int i=0; i < 360; i++){
+        float degInRad = i*3.14159/180;
+        if (a < 1.0){
+            a = a+0.1;
+        }else if (a > 1.0 && b < 1.0){
+            b = b + 0.1;
+        }else if(a > 1.0 && b > 1.0 && c < 1.0){
+            c = c + 0.1;
+        }else {
+            a = 0.0;
+            b = 0.0;
+            c = 0.0;
+        }
+        glColor3f(b,a,c);
+        glVertex2f(cos(degInRad)*(0.5+0.2),sin(degInRad)*(0.5+0.6));
+    }
     glEnd();
+    
 }
 
 static void display(void) {
@@ -91,10 +101,6 @@ static void display(void) {
 }
 
 static void idle(void) {
-    int new_time = glutGet(GLUT_ELAPSED_TIME);
-    angle += angle_speed * (new_time - time) / 1000.0;
-    angle = fmod(angle, 360.0);
-    time = new_time;
     glutPostRedisplay();
 }
 
