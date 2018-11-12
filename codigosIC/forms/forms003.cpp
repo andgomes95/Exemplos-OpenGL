@@ -65,6 +65,7 @@ static void init(void)  {
 static void deinit(void)  {
     /*liberar pixels*/
     free(pixels);
+    objetos.clear();
 }
 /* Funcao que cria o print screen*/
 static void create_ppm(char *prefix, int frame_id, unsigned int width, unsigned int height,
@@ -91,7 +92,9 @@ static void display(void) {
     glLoadIdentity();
     for (auto i = objetos.begin(); i!= objetos.end();++i){
         draw_scene((*i).type,(*i).x0,(*i).y0,(*i).raio,(*i).color);
+        (*i).raio = (*i).raio + 0.001;
     }
+
     glutSwapBuffers();
     /*lê os pixels e salva na variavel "pixels"*/
     glReadPixels(0, 0, WIDTH, HEIGHT, FORMAT, GL_UNSIGNED_BYTE, pixels);
@@ -109,11 +112,92 @@ static void draw_circle(float x0, float y0,float raio,clr color){
     }
     glEnd();
 }
+static void draw_square(float x0,float y0, float raio, clr color){
+    glColor3f(color.r,color.g,color.b);
+    float vertexDistCenter = raio*sqrt(2.0)/2.0;
+    glBegin(GL_POLYGON);
+        glVertex2f(x0+vertexDistCenter,y0+vertexDistCenter);
+        glVertex2f(x0+vertexDistCenter,y0-vertexDistCenter);
+        glVertex2f(x0-vertexDistCenter,y0-vertexDistCenter);
+        glVertex2f(x0-vertexDistCenter,y0+vertexDistCenter);
+    glEnd();
+}
+static void draw_torus(float x0,float y0,float raio,clr color){
+    glColor3f(color.r,color.g,color.b);
+    glPushMatrix();
+    glTranslatef(x0,y0,0.0);
+    glutSolidTorus(raio/2.0, raio, 50, 50);
+    glPopMatrix();
+}
+static void draw_teapot(float x0,float y0,float raio,clr color){
+    glColor3f(color.r,color.g,color.b);
+    glPushMatrix();
+    glTranslatef(x0,y0,0.0);
+    glutSolidTeapot(raio);
+    glPopMatrix();
+}
+static void draw_sphere(float x0, float y0, float raio, clr color){
+    glColor3f(color.r,color.g,color.b);
+    glPushMatrix();
+    glTranslatef(x0,y0,0.0);
+    glutSolidSphere(raio,50,50);
+    glPopMatrix();   
+}
+static void draw_cube(float x0, float y0, float raio, clr color){
+    glColor3f(color.r,color.g,color.b);
+    glPushMatrix();
+    glTranslatef(x0,y0,0.0);
+    glutSolidCube(raio);
+    glPopMatrix();
+}
+static void draw_cone(float x0, float y0, float raio, clr color){
+    glColor3f(color.r,color.g,color.b);
+    glPushMatrix();
+    glTranslatef(x0,y0,0.0);
+    glutSolidCone(raio/2,raio,50,50);
+    glPopMatrix();
+}
+static void draw_triangle(float x0, float y0, float raio, clr color){
+     glColor3f(color.r,color.g,color.b);
+    float vertexDistCenter = raio*sqrt(2.0)/2.0;
+    glBegin(GL_POLYGON);
+        glVertex2f(x0,y0+vertexDistCenter);
+        glVertex2f(x0+vertexDistCenter,y0-vertexDistCenter);
+        glVertex2f(x0-vertexDistCenter,y0-vertexDistCenter);
+    glEnd();
+}
+
+static void limparTela(){
+    objetos.clear();
+}
+
 static void draw_scene(int type, float x0, float y0, float raio, clr color) {
     switch(type){
         case 0:
             draw_circle(x0,y0,raio,color);
-            break;        
+            break;
+        case 1:
+            draw_square(x0,y0,raio,color);
+            break;
+        case 2:
+            draw_triangle(x0,y0,raio,color);
+            break;
+        case 3:
+            draw_sphere(x0,y0,raio,color);
+            break;
+        case 4:
+            draw_cube(x0,y0,raio,color);
+            break;
+        case 5:
+            draw_cone(x0,y0,raio,color);
+            break;
+        case 6:
+            draw_torus(x0,y0,raio,color);
+            break;
+        case 7:
+            draw_teapot(x0,y0,raio,color);
+            break;
+        
     }    
 }
 
@@ -127,13 +211,50 @@ clr createColor(){
     switch(typeColor){
         case 0:
             color.r = 1.0f;
-            color.g = 0.0f;
+            color.g = 1.0f;
             color.b = 1.0f;
             break;
         case 1:
             color.r = 1.0f;
             color.g = 1.0f;
             color.b = 0.0f;
+            break;
+        case 2:
+            color.r = 0.0f;
+            color.g = 1.0f;
+            color.b = 1.0f;
+            break;
+        case 3:
+            color.r = 1.0f;
+            color.g = 0.0f;
+            color.b = 1.0f;
+            break;
+        case 4:
+            color.r = 1.0f;
+            color.g = 0.0f;
+            color.b = 0.0f;
+            break;
+        case 5:
+            color.r = 0.0f;
+            color.g = 1.0f;
+            color.b = 0.0f;
+            break;
+        case 6:
+            color.r = 0.0f;
+            color.g = 0.0f;
+            color.b = 1.0f;
+            break;
+        case 7:
+            color.r = 0.5f;
+            color.g = 0.5f;
+            color.b = 0.5f;
+            break;
+        case 8:
+            color.r = 0.5f;
+            color.g = 1.0f;
+            color.b = 0.5f;
+            break;
+
     }
     return color;
 }
@@ -158,11 +279,56 @@ void keyboard(unsigned char key, int x, int y)
         case 'w':
             typeColor = 1;
             break;
+        case 'e':
+            typeColor = 2;
+            break;
+        case 'r':
+            typeColor = 3;
+            break;
+        case 't':
+            typeColor = 4;
+            break;
+        case 'y':
+            typeColor = 5;
+            break;
+        case 'u':
+            typeColor = 6;
+            break;
+        case 'i':
+            typeColor = 7;
+            break;
+        case 'o':
+            typeColor = 8;
+            break;
+        case 'p':
+            typeColor = rand()%8;
+            break;
         case 'a': 
             typeObject = 0;
             break;
         case 's':
             typeObject = 1;
+            break;
+        case 'd':
+            typeObject = 2;
+            break;
+        case 'f':
+            typeObject = 3;
+            break;
+        case 'g':
+            typeObject = 4;
+            break;
+        case 'h':
+            typeObject = 5;
+            break;
+        case 'j':
+            typeObject = 6;
+            break;
+        case 'k':
+            typeObject = 7;
+            break;
+        case 'l':
+            limparTela();
             break;
     }
     glutPostRedisplay();
@@ -177,12 +343,10 @@ void mouse(int button, int state, int x, int y) {
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
         distX0 = ((float)x/(float)HEIGHT-0.5)*2;
         distY0 = -((float)y/(float)WIDTH-0.5)*2;
-        printf("%f , %f\n", distX0, distY0);
     }
     if (button == GLUT_LEFT_BUTTON && state == GLUT_UP){
         distX = ((float)x/(float)HEIGHT-0.5)*2;
         distY = -((float)y/(float)WIDTH-0.5)*2;
-        printf("%d , %d\n", x, y);
         createObjectCanvas();
     }
 }
@@ -195,7 +359,9 @@ int main(int argc, char **argv) {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutCreateWindow(argv[0]);
     init();
+    glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
     glutDisplayFunc(display);
+
     glutIdleFunc(idle);
     glutMouseFunc(mouse);
     glutKeyboardFunc(keyboard);
