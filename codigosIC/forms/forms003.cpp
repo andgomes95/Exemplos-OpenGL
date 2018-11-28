@@ -6,8 +6,9 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 #include <GL/glext.h>
+#include <unistd.h> 
 #include <vector> 
-  
+#define ESCAPE 27
 using namespace std; 
 typedef struct color{
     float r;
@@ -23,12 +24,12 @@ typedef struct objectCanvas{
 }obC;
 
 vector<obC> objetos; 
-
+int window;
 static GLubyte *pixels = NULL;
 static const GLenum FORMAT = GL_RGBA;
 static const GLuint FORMAT_NBYTES = 4;
-static const unsigned int HEIGHT = 500;
-static const unsigned int WIDTH = 500;
+static const unsigned int HEIGHT = 400;
+static const unsigned int WIDTH = 400;
 static unsigned int nscreenshots = 0;
 static unsigned int time;
 
@@ -37,6 +38,9 @@ static double angle = 0;
 static double angle_speed = 45;
 int typeObject = 0;
 int typeColor = 0;
+int something = 0;
+float angleX=0,angleY=0,angleZ=0,valueSomething = 0.0;
+bool flagRotateX=false,flagRotateY=false,flagRotateZ=false;
 float raio=0.2,distX0=0.0,distY0=0.0,distX=0.0,distY=0.0;
 
 static void init(void)  {
@@ -87,12 +91,49 @@ static void create_ppm(char *prefix, int frame_id, unsigned int width, unsigned 
     fclose(f);
 }
 static void draw_scene(int,float,float,float,clr);
+static void makeSomething(){
+    switch(something){
+        case 0:
+            valueSomething = 0.000;
+            flagRotateX=false;
+            flagRotateY=false;
+            flagRotateZ=false;
+            break;
+        case 1:
+            angleX=0;
+            angleY=0;
+            angleZ=0;
+            break;
+        case 2:
+            valueSomething = 0.001;
+            break;
+        case 3:
+            flagRotateX=true;
+            break;
+        case 4:
+            flagRotateY=true;
+            break;
+        case 5:
+            flagRotateZ=true;
+            
+            break;
+    }
+}
 static void display(void) {
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
+    glRotatef(angleX,1.0,0.0,0.0);
+    glRotatef(angleY,0.0,1.0,0.0);
+    glRotatef(angleZ,0.0,0.0,1.0);
+    
     for (auto i = objetos.begin(); i!= objetos.end();++i){
         draw_scene((*i).type,(*i).x0,(*i).y0,(*i).raio,(*i).color);
-        (*i).raio = (*i).raio + 0.001;
+        makeSomething();
+        (*i).raio = (*i).raio + valueSomething;
+        if(something == 6){
+            (*i).x0 = distX0;
+            (*i).y0 = distY0;
+        }
     }
 
     glutSwapBuffers();
@@ -101,6 +142,14 @@ static void display(void) {
 }
 
 static void idle(void) {
+    if(flagRotateX){
+        angleX++; 
+    }if(flagRotateY){
+        angleY++; 
+    }if(flagRotateZ){
+        angleZ++; 
+    }
+    
     glutPostRedisplay();
 }
 static void draw_circle(float x0, float y0,float raio,clr color){
@@ -196,8 +245,7 @@ static void draw_scene(int type, float x0, float y0, float raio, clr color) {
             break;
         case 7:
             draw_teapot(x0,y0,raio,color);
-            break;
-        
+            break;   
     }    
 }
 
@@ -273,6 +321,10 @@ void createObjectCanvas(){
 void keyboard(unsigned char key, int x, int y)
 {
     switch (key) {
+        usleep(100);
+        case ESCAPE:
+            glutDestroyWindow(window); 
+            exit(0);                   
         case 'q':
             typeColor = 0;
             break;
@@ -330,10 +382,30 @@ void keyboard(unsigned char key, int x, int y)
         case 'l':
             limparTela();
             break;
+        case 'z': 
+            something = 0;
+            break;
+        case 'x':
+            something = 1;
+            break;
+        case 'c':
+            something = 2;
+            break;
+        case 'v':
+            something = 3;
+            break;
+        case 'b':
+            something = 4;
+            break;
+        case 'n':
+            something = 5;
+            break;
+        case 'm':
+            something = 6;
+            break;
     }
     glutPostRedisplay();
 }
-
 void mouse(int button, int state, int x, int y) {
     if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
         puts("screenshot");
@@ -357,9 +429,10 @@ int main(int argc, char **argv) {
     glutInitWindowSize(WIDTH, HEIGHT);
     glutInitWindowPosition(100, 100);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-    glutCreateWindow(argv[0]);
+    window = glutCreateWindow(argv[0]);
     init();
     glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+   // glutFullScreen(); 
     glutDisplayFunc(display);
 
     glutIdleFunc(idle);

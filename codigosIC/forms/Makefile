@@ -1,5 +1,5 @@
 all:
-	g++ forms001.cpp -o pratica -lglut -lGL -lGLU -lm
+	g++ forms003.cpp -o pratica -lglut -lGL -lGLU -lm -std=c++11
 	./pratica
 forms001:
 	g++ forms001.cpp -o pratica -lglut -lGL -lGLU -lm
@@ -8,5 +8,8 @@ forms002:
 	g++ forms002.cpp -o pratica -lglut -lGL -lGLU -lm
 	./pratica
 forms003:
-	g++ forms003.cpp -o pratica -lglut -lGL -lGLU -lm
+	g++ forms003.cpp -o pratica -lglut -lGL -lGLU -lm -std=c++11
+	./pratica
+forms004:
+	g++ forms004.cpp -o pratica -lglut -lGL -lGLU -lm -std=c++11
 	./pratica
