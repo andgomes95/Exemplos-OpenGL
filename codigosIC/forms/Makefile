@@ -13,3 +13,6 @@ forms003:
 forms004:
 	g++ forms004.cpp -o pratica -lglut -lGL -lGLU -lm -std=c++11
 	./pratica
+forms005:
+	g++ forms005.cpp -o pratica -lglut -lGL -lGLU -lm -std=c++11
+	./pratica

@@ -25,9 +25,9 @@ void introscreen(){
     glColor3f(1.f,1.f,1.f);
     char buf[100] = {0};
     sprintf(buf,":::::::::::::TESTE:::::::::");
-    renderbitmap(-80,40,GLUT_BITMAP_TIMES_ROMAN_24,buf);
+    renderbitmap(-80,40,GLUT_BITMAP_TIMES_ROMAN_10,buf);
     sprintf(buf,":::::::::::UHU:::::::::::");
-    renderbitmap(-80,35,GLUT_BITMAP_TIMES_ROMAN_24,buf);
+    renderbitmap(-80,35,GLUT_BITMAP_TIMES_ROMAN_10,buf);
     
 }
 
