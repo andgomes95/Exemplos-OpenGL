@@ -1,4 +1,3 @@
-
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -12,12 +11,14 @@
 #define ESCAPE 27 //Valor em ASCII do ESC
 #define WIDTH 500
 #define HEIGHT 500
+#define FATIAS 8
 using namespace std; 
 int window,xMouse,yMouse;
 typedef struct point{
     float x;
     float y;
 }pnt;
+
 
 vector<vector<pnt>> objetos;
 vector<pnt> pincel; 
@@ -95,16 +96,22 @@ void draw(){
     pincel.push_back(pixel);
 }
 void mandala(){
-    glColor3f(1.0,1.0,1.0);
+    
+    float angule,r;
     for(auto j = objetos.begin(); j!= objetos.end();++j){
         glBegin(GL_LINE_STRIP);
+        
         for (auto i = (*j).begin(); i!= (*j).end();++i){
-            glVertex2d(i->x,-i->y);
-        }
-        glEnd();
-        glBegin(GL_LINE_STRIP);
-        for (auto i = (*j).begin(); i!= (*j).end();++i){
-            glVertex2d(-i->x,-i->y);
+            r = sqrt(pow(i->x,2)+pow(i->y,2));
+            for(int k=0;k<FATIAS;k++){
+                glColor3f(rand()%10/10.0,rand()%10/10.0,rand()%10/10.0);
+                angule = atan2(i->x,i->y);
+                angule = angule *180.0/3.1415;
+                angule = (float)k*360.0/FATIAS+angule;
+                angule = angule/180.0*3.1415;
+                glVertex2d(r*cos(angule),r*sin(angule));
+            }
+                
         }
         glEnd();
     }
@@ -114,12 +121,27 @@ void mandala(){
         glVertex2d(i->x,-i->y);
     }
     glEnd();
-    glBegin(GL_LINE_STRIP);
-    glColor3f(0.0,1.0,0.0);
-    for (auto i = pincel.begin(); i!= pincel.end();++i){
-        glVertex2d(-i->x,-i->y);
+
+
+
+
+
+
+
+/*
+    float x = 0.5,y = 0.5;
+    float angule = atan2(x,y);
+    float r = sqrt(pow(x,2)+pow(x,2));
+    glBegin(GL_POLYGON);
+    for(int i=0;i<quantidade;i++){
+        angule = atan2(x,y);
+        angule = angule *180.0/3.1415;
+        angule = (float)i*360.0/quantidade+angule;
+        angule = angule/180.0*3.1415;
+        glVertex2d(r*cos(angule),r*sin(angule));
     }
     glEnd();
+*/
 }
 
 void display(){
