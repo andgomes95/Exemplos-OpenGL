@@ -16,3 +16,6 @@ forms004:
 forms005:
 	g++ forms005.cpp -o pratica -lglut -lGL -lGLU -lm -std=c++11
 	./pratica
+forms006:
+	g++ forms006.cpp -o pratica -lglut -lGL -lGLU -lm -std=c++11
+	./pratica

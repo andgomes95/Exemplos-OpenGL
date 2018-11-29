@@ -94,7 +94,7 @@ void draw(){
     pixel.y = yMouse;
     pincel.push_back(pixel);
 }
-void render(){
+void mandala(){
     glColor3f(1.0,1.0,1.0);
     for(auto j = objetos.begin(); j!= objetos.end();++j){
         glBegin(GL_LINE_STRIP);
@@ -102,11 +102,44 @@ void render(){
             glVertex2d(((float)i->x-(float)WIDTH/2.0)/(float)WIDTH*2.0,-((float)i->y-(float)WIDTH/2.0)/(float)WIDTH*2.0);
         }
         glEnd();
+        glBegin(GL_LINE_STRIP);
+        for (auto i = (*j).begin(); i!= (*j).end();++i){
+            glVertex2d(-((float)i->x-(float)WIDTH/2.0)/(float)WIDTH*2.0,-((float)i->y-(float)WIDTH/2.0)/(float)WIDTH*2.0);
+        }
+        glEnd();
+         glBegin(GL_LINE_STRIP);
+        for (auto i = (*j).begin(); i!= (*j).end();++i){
+            glVertex2d(((float)i->x-(float)WIDTH/2.0)/(float)WIDTH*2.0,((float)i->y-(float)WIDTH/2.0)/(float)WIDTH*2.0);
+        }
+        glEnd();
+        glBegin(GL_LINE_STRIP);
+        for (auto i = (*j).begin(); i!= (*j).end();++i){
+            glVertex2d(-((float)i->x-(float)WIDTH/2.0)/(float)WIDTH*2.0,((float)i->y-(float)WIDTH/2.0)/(float)WIDTH*2.0);
+        }
+        glEnd();
     }
     glBegin(GL_LINE_STRIP);
     glColor3f(1.0,0.0,0.0);
     for (auto i = pincel.begin(); i!= pincel.end();++i){
         glVertex2d(((float)i->x-(float)WIDTH/2.0)/(float)WIDTH*2.0,-((float)i->y-(float)WIDTH/2.0)/(float)WIDTH*2.0);
+    }
+    glEnd();
+    glBegin(GL_LINE_STRIP);
+    glColor3f(0.0,1.0,0.0);
+    for (auto i = pincel.begin(); i!= pincel.end();++i){
+        glVertex2d(-((float)i->x-(float)WIDTH/2.0)/(float)WIDTH*2.0,-((float)i->y-(float)WIDTH/2.0)/(float)WIDTH*2.0);
+    }
+    glEnd();
+    glBegin(GL_LINE_STRIP);
+    glColor3f(1.0,0.5,0.5);
+    for (auto i = pincel.begin(); i!= pincel.end();++i){
+        glVertex2d(((float)i->x-(float)WIDTH/2.0)/(float)WIDTH*2.0,((float)i->y-(float)WIDTH/2.0)/(float)WIDTH*2.0);
+    }
+    glEnd();
+    glBegin(GL_LINE_STRIP);
+    glColor3f(0.0,0.0,1.0);
+    for (auto i = pincel.begin(); i!= pincel.end();++i){
+        glVertex2d(-((float)i->x-(float)WIDTH/2.0)/(float)WIDTH*2.0,((float)i->y-(float)WIDTH/2.0)/(float)WIDTH*2.0);
     }
     glEnd();
 }
@@ -118,7 +151,7 @@ void display(){
     if(press){
         draw();
     }
-    render();
+    mandala();
     glOrtho(-1.0,1.0,-1.0,1.0,0.0,0.0);
     glutSwapBuffers();
 }
