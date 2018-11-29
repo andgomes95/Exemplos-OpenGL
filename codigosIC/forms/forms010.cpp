@@ -1,3 +1,4 @@
+
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -11,14 +12,12 @@
 #define ESCAPE 27 //Valor em ASCII do ESC
 #define WIDTH 500
 #define HEIGHT 500
-#define FATIAS 15
 using namespace std; 
 int window,xMouse,yMouse;
 typedef struct point{
     float x;
     float y;
 }pnt;
-
 
 vector<vector<pnt>> objetos;
 vector<pnt> pincel; 
@@ -63,7 +62,6 @@ void movementMouse(int x, int y){
     if (press == true && (xMouse != x || yMouse != y)){
         xMouse = x;
         yMouse = y;
-        draw();
     }
 }
 void onMouseClick2(int button, int state, int x, int y){
@@ -75,6 +73,7 @@ void onMouseClick2(int button, int state, int x, int y){
         printf("press esquerda\n");
     }if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
         press = false;
+        draw();
         objetos.push_back(pincel);
         pincel.clear();
         printf("solta esquerda %i, %i\n",x,y);
@@ -91,30 +90,18 @@ void onMouseClick2(int button, int state, int x, int y){
 
 void draw(){
     pnt pixel;
-    pixel.x = ((float)xMouse-(float)WIDTH/2.0)/(float)WIDTH*2.0;
-    pixel.y = ((float)yMouse-(float)WIDTH/2.0)/(float)WIDTH*2.0;
+    pixel.x = (xMouse-(float)WIDTH/2.0)/(float)WIDTH*2.0;
+    pixel.y = (yMouse-(float)WIDTH/2.0)/(float)WIDTH*2.0;
     pincel.push_back(pixel);
 }
-void mandala(){
-    
-    float angule,r;
+void render(){
+    glColor3f(1.0,1.0,1.0);
     for(auto j = objetos.begin(); j!= objetos.end();++j){
-        glColor3f(rand()%10/10.0,rand()%10/10.0,rand()%10/10.0);
-        for(int k=0;k<FATIAS;k++){
         glBegin(GL_LINE_STRIP);
-        
         for (auto i = (*j).begin(); i!= (*j).end();++i){
-            r = sqrt(pow(i->x,2)+pow(i->y,2));
-            
-                
-                angule = atan2(i->x,i->y);
-                angule = angule *180.0/3.1415;
-                angule = (float)k*360.0/FATIAS+angule;
-                angule = angule/180.0*3.1415;
-                glVertex2d(r*cos(angule),r*sin(angule));
-            }
-            glEnd();
+            glVertex2d(i->x,-i->y);
         }
+        glEnd();
     }
     glBegin(GL_LINE_STRIP);
     glColor3f(1.0,0.0,0.0);
@@ -122,37 +109,13 @@ void mandala(){
         glVertex2d(i->x,-i->y);
     }
     glEnd();
-
-
-
-
-
-
-
-/*
-    float x = 0.5,y = 0.5;
-    float angule = atan2(x,y);
-    float r = sqrt(pow(x,2)+pow(x,2));
-    glBegin(GL_POLYGON);
-    for(int i=0;i<quantidade;i++){
-        angule = atan2(x,y);
-        angule = angule *180.0/3.1415;
-        angule = (float)i*360.0/quantidade+angule;
-        angule = angule/180.0*3.1415;
-        glVertex2d(r*cos(angule),r*sin(angule));
-    }
-    glEnd();
-*/
 }
 
 void display(){
     glMatrixMode(GL_MODELVIEW);
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
-    if(press){
-        draw();
-    }
-    mandala();
+    render();
     glutSwapBuffers();
 }
 

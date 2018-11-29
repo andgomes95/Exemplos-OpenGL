@@ -89,3 +89,7 @@ make nomedapratica
 - forms 008 - Mandala interligando pontos refletidos
 
 - forms 009 - Mandala
+
+- forms 010 - Pincel Modo Linha
+
+- forms 011 - Pincel Bezier Quadratico
