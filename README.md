@@ -71,3 +71,21 @@ make nomedapratica
 - Pratica 032 - Fogos: particulas com cubos
 
 - Pratica 033 - Esqueleto (em andamento)
+
+- forms 001 - Screenshot
+
+- forms 002 - Screenshot
+
+- forms 003 - Protótipo da peça Chaos das Cinco
+
+- forms 004 - Texto na tela
+
+- forms 005 - Ferramenta Pincel
+
+- forms 006 - Pincel Espelhado
+
+- forms 007 - Coordenada Polar
+
+- forms 008 - Mandala interligando pontos refletidos
+
+- forms 009 - Mandala
