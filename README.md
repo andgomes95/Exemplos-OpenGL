@@ -93,3 +93,9 @@ make nomedapratica
 - forms 010 - Pincel Modo Linha
 
 - forms 011 - Pincel Bezier Quadratico
+
+- forms 012 - Fractais: Triangulo de Sierpinski
+
+- forms 013 - Fractais: Curva de Koch
+
+- forms 014 - Fractais quadrado

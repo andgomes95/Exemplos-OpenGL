@@ -34,3 +34,12 @@ forms010:
 forms011:
 	g++ forms011.cpp -o pratica -lglut -lGL -lGLU -lm -std=c++11
 	./pratica
+forms012:
+	g++ forms012.cpp -o pratica -lglut -lGL -lGLU -lm -std=c++11
+	./pratica
+forms013:
+	g++ forms013.cpp -o pratica -lglut -lGL -lGLU -lm -std=c++11
+	./pratica
+forms014:
+	g++ forms014.cpp -o pratica -lglut -lGL -lGLU -lm -std=c++11
+	./pratica
