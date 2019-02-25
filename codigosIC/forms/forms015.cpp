@@ -70,6 +70,17 @@ void mosaicgraph_draw_circle(pnt p,float * rgb){
 	glEnd();
 }
 
+void auto_color(int value,int total){
+    float passo=1;
+    int r,g,b;
+    passo = 1000/(float)total;
+    passo = passo*value;
+    r = passo/100;
+    passo = passo -r*100;
+    g = passo/10;
+    b = passo - g*10;
+    glColor3f((float)r/10.0,(float)g/10.0,(float)b/10.0);
+}
 void voronoi(){
     float x0,y0;
     list<float> distancia;
@@ -89,40 +100,7 @@ void voronoi(){
                 }
                 indice++; 
             }
-            switch(atual){
-                case 0:
-                glColor3f(1.0f,0.0f,0.0f);
-                break;
-                case 1:
-                glColor3f(0.0f,1.0f,0.0f);
-                break;
-                case 2:
-                glColor3f(0.0f,0.0f,1.0f);
-                break;
-                case 3:
-                glColor3f(1.0f,0.0f,1.0f);
-                break;
-                case 4:
-                glColor3f(1.0f,1.0f,1.0f);
-                break;
-                case 5:
-                glColor3f(1.0f,1.0f,0.0f);
-                break;
-                case 6:
-                glColor3f(0.0f,1.0f,1.0f);
-                break;
-                case 7:
-                glColor3f(0.5f,0.5f,0.5f);
-                break;
-                case 8:
-                glColor3f(0.5f,0.7f,0.3f);
-                break;
-                case 9:
-                glColor3f(1.0f,0.5f,0.5f);
-                break;
-                default:
-                break;
-            }
+            auto_color(atual,pontos.size());
             glBegin(GL_POINTS);
             glVertex2f(x0,y0);
             glEnd();
@@ -149,7 +127,7 @@ void display(){
 	glMatrixMode(GL_MODELVIEW);
 	glClear(GL_COLOR_BUFFER_BIT);         // Limpa o collor buffer
 	glLoadIdentity();
-    random_points(10);
+    random_points(16);
     voronoi();
     for(auto i = pontos.begin(); i!= pontos.end();++i){
         mosaicgraph_draw_circle((*i),circle_1_color);
