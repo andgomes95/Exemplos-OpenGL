@@ -106,3 +106,6 @@ Pratica035:
 Pratica036:
 	g++ Pratica036.cpp -o pratica -lglut -lGL -lGLU -lm 
 	./pratica
+Pratica037:
+	g++ Pratica037.cpp -o pratica -lglut -lGL -lGLU -lm 
+	./pratica
