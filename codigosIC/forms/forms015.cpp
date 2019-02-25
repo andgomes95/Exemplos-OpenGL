@@ -63,80 +63,97 @@ int mosaicgraph_draw_window(mosaicgraph_window_t * window){
 void mosaicgraph_draw_circle(pnt p,float * rgb){
 	glColor3f(1.0,1.0,1.0);
 	glBegin(GL_POLYGON);
-        glVertex2f(p.x-0.05,p.y-0.05);
-        glVertex2f(p.x+0.05,p.y-0.05);
-        glVertex2f(p.x+0.05,p.y+0.05);
-        glVertex2f(p.x-0.05,p.y+0.05);
+        glVertex2f(p.x-0.01,p.y-0.01);
+        glVertex2f(p.x+0.01,p.y-0.01);
+        glVertex2f(p.x+0.01,p.y+0.01);
+        glVertex2f(p.x-0.01,p.y+0.01);
 	glEnd();
 }
 
 void voronoi(){
-    float dis1,dis2,dis3,x0,y0;
-    pnt p,q,r;
-    p.x = 0.25;
-    p.y = 0.75;
-    q.x = 0.5;
-    q.y = -0.5;
-    r.x = -0.25;
-    r.y = 0.5;
-    pontos.push_back(p);
-    pontos.push_back(q);
-    pontos.push_back(r);
-
-    for(int i =0;i<200;i++){
-        for(int j=0;j<200;j++){
-            x0 = (float)i/100.0-1.0;
-            y0 = (float)j/100.0-1.0;
-            dis1 = sqrt(pow((p.x-x0),2)+pow((p.y-y0),2));
-            dis2 = sqrt(pow((q.x-x0),2)+pow((q.y-y0),2));
-            dis3 = sqrt(pow((r.x-x0),2)+pow((r.y-y0),2));
-            if(dis1<dis2){
-                if(dis1<dis3){
-                    glColor3f(1.0,0.0,0.0);
-                    glBegin(GL_POINTS);
-                        glVertex2f(x0,y0);
-                    glEnd();
-                }else{
-                    glColor3f(0.0,0.0,1.0);
-                    glBegin(GL_POINTS);
-                        glVertex2f(x0,y0);
-                    glEnd();
+    float x0,y0;
+    list<float> distancia;
+    float aux,value=88888.9;
+    int indice=0, atual;
+    for(int i =0;i<400;i++){
+        for(int j=0;j<400;j++){
+            indice=0;
+            value=88888.9;
+            x0 = (float)i/200.0-1.0;
+            y0 = (float)j/200.0-1.0;
+            for(auto i = pontos.begin(); i!= pontos.end();++i){
+                aux = sqrt(pow(((*i).x-x0),2)+pow(((*i).y-y0),2));
+                if(aux < value){
+                    value = aux;
+                    atual = indice;
                 }
-            }else if(dis2<dis3){
-                glColor3f(0.0,1.0,0.0);
-                glBegin(GL_POINTS);
-                    glVertex2f(x0,y0);
-                glEnd();
-            }else{
-                if(dis1<dis3){
-                    glColor3f(0.0,1.0,0.0);
-                    glBegin(GL_POINTS);
-                        glVertex2f(x0,y0);
-                    glEnd();
-                }else{
-                    glColor3f(0.0,0.0,1.0);
-                    glBegin(GL_POINTS);
-                        glVertex2f(x0,y0);
-                    glEnd();
-                }
+                indice++; 
             }
-        }
-    }
+            switch(atual){
+                case 0:
+                glColor3f(1.0f,0.0f,0.0f);
+                break;
+                case 1:
+                glColor3f(0.0f,1.0f,0.0f);
+                break;
+                case 2:
+                glColor3f(0.0f,0.0f,1.0f);
+                break;
+                case 3:
+                glColor3f(1.0f,0.0f,1.0f);
+                break;
+                case 4:
+                glColor3f(1.0f,1.0f,1.0f);
+                break;
+                case 5:
+                glColor3f(1.0f,1.0f,0.0f);
+                break;
+                case 6:
+                glColor3f(0.0f,1.0f,1.0f);
+                break;
+                case 7:
+                glColor3f(0.5f,0.5f,0.5f);
+                break;
+                case 8:
+                glColor3f(0.5f,0.7f,0.3f);
+                break;
+                case 9:
+                glColor3f(1.0f,0.5f,0.5f);
+                break;
+                default:
+                break;
+            }
+            glBegin(GL_POINTS);
+            glVertex2f(x0,y0);
+            glEnd();
 
+        }
+            
+    }
+    distancia.clear();
+
+}
+
+void random_points(int qtd){
+    pnt aux;
+    for (int i = 0;i<qtd;i++){
+        aux.x = (float)(rand()%200)/100.0-1.0;
+        aux.y = (float)(rand()%200)/100.0-1.0;
+        pontos.push_back(aux);
+    }
 }
 
 
 void display(){
-
+    srand(time(NULL));
 	glMatrixMode(GL_MODELVIEW);
 	glClear(GL_COLOR_BUFFER_BIT);         // Limpa o collor buffer
 	glLoadIdentity();
+    random_points(10);
     voronoi();
     for(auto i = pontos.begin(); i!= pontos.end();++i){
         mosaicgraph_draw_circle((*i),circle_1_color);
     }
-    
-
   	glutSwapBuffers();
 }
 void keyPressed(unsigned char key, int x, int y) {
@@ -149,7 +166,6 @@ void keyPressed(unsigned char key, int x, int y) {
 }
 void idle(){
     
-    display();
 }
 int main (int argc, char** argv){
 	glutInit(&argc, argv);
