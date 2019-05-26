@@ -49,56 +49,56 @@ int mosaicgraph_draw_window(mosaicgraph_window_t * window){
     }
     return window->id;
 }
-void sierpinski(int number, float x1, float y1, float x2, float y2){
+void kochcurve(int number, float x1, float y1, float x2, float y2){
     if(number > 0){
-        pnt vMed,v1,v2,v3,v4,v5,vaux;
-        vMed.x = (vertice1.x+vertice2.x)/2.0;
-        vMed.y = (vertice1.y+vertice2.y)/2.0;
+        float medx,medy,v1x,v1y,v2x,v2y,v3x,v3y,v4x,v4y,v5x,v5y,auxx,auxy;
+        medx = (x1+x2)/2.0;
+        medy = (y1+y2)/2.0;
         
-        v1.x = (vertice1.x+vMed.x)/2.0;
-        v1.x = (v1.x+vMed.x)/2.0;
-        v1.y = (vertice1.y+vMed.y)/2.0;
-        v1.y = (v1.y+vMed.y)/2.0;
-        sierpinski(number-1,vertice1,v1);
+        v1x = (x1+medx)/2.0;
+        v1x = (v1x+medx)/2.0;
+        v1y = (y1+medy)/2.0;
+        v1y = (v1y+medy)/2.0;
+        kochcurve(number-1,x1,y1,v1x,v1y);
 
-        v2.x = (vertice1.x+vMed.x)/2.0;
-        v2.x = (v2.x+vMed.x)/2.0;
-        v2.y = (vertice2.y+vMed.y)/2.0;
-        v2.y = (v2.y+vMed.y)/2.0;
-        vaux.x = vertice1.x;
-        vaux.y = vertice2.y;
-        sierpinski(number-1,vaux,v2);
+        v2x = (x1+medx)/2.0;
+        v2x = (v2x+medx)/2.0;
+        v2y = (y2+medy)/2.0;
+        v2y = (v2y+medy)/2.0;
+        auxx = x1;
+        auxy = y2;
+        kochcurve(number-1,auxx,auxy,v2x,v2y);
 
-        v3.x = (vertice2.x+vMed.x)/2.0;
-        v3.x = (v3.x+vMed.x)/2.0;
-        v3.y = (vertice2.y+vMed.y)/2.0;
-        v3.y = (v3.y+vMed.y)/2.0;
-        vaux.x = vertice2.x;
-        vaux.y = vertice2.y;
-        sierpinski(number-1,vaux,v3);
+        v3x = (x2+medx)/2.0;
+        v3x = (v3x+medx)/2.0;
+        v3y = (y2+medy)/2.0;
+        v3y = (v3y+medy)/2.0;
+        auxx = x2;
+        auxy = y2;
+        kochcurve(number-1,auxx,auxy,v3x,v3y);
 
-        v4.x = (vertice2.x+vMed.x)/2.0;
-        v4.x = (v4.x+vMed.x)/2.0;
-        v4.y = (vertice1.y+vMed.y)/2.0;
-        v4.y = (v4.y+vMed.y)/2.0;
-        vaux.x = vertice2.x;
-        vaux.y = vertice1.y;
-        sierpinski(number-1,vaux,v4);
+        v4x = (x2+medx)/2.0;
+        v4x = (v4x+medx)/2.0;
+        v4y = (y1+medy)/2.0;
+        v4y = (v4y+medy)/2.0;
+        auxx = x2;
+        auxy = y1;
+        kochcurve(number-1,auxx,auxy,v4x,v4y);
 
-        v5.x = v1.x;
-        v5.y = v1.y;
-        vaux.x = v3.x;
-        vaux.y = v3.y;
-        sierpinski(number-1,vaux,v5);
+        v5x = v1x;
+        v5y = v1y;
+        auxx = v3x;
+        auxy = v3y;
+        kochcurve(number-1,auxx,auxy,v5x,v5y);
         
         return;
     }else{
         glBegin(GL_LINE_STRIP);
-        glVertex2d(vertice1.x,vertice1.y);
-        glVertex2d(vertice1.x,vertice2.y);
-        glVertex2d(vertice2.x,vertice2.y);
-        glVertex2d(vertice2.x,vertice1.y);
-        glVertex2d(vertice1.x,vertice1.y);
+        glVertex2d(x1,y1);
+        glVertex2d(x1,y2);
+        glVertex2d(x2,y2);
+        glVertex2d(x2,y1);
+        glVertex2d(x1,y1);
         glEnd();
         return;
     }
@@ -107,12 +107,13 @@ void sierpinski(int number, float x1, float y1, float x2, float y2){
 void display(){
     glMatrixMode(GL_MODELVIEW);
     glClear(GL_COLOR_BUFFER_BIT);
+    float x1,y1,x2,y2;
     x1 = 0.75f;
     y1 = 0.75f;
     x2 = -0.75f;
     y2 = -0.75f;
     glLoadIdentity();
-    sierpinski(2,x1,y1,x2,y2);
+    kochcurve(2,x1,y1,x2,y2);
     glutSwapBuffers();
 }
 
