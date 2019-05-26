@@ -49,24 +49,18 @@ int mosaicgraph_draw_window(mosaicgraph_window_t * window){
     }
     return window->id;
 }
-void sierpinski(int number, float x1, float y1, float x2,float y2,float x3,float y3){
-    glBegin(GL_LINE_STRIP);
+void cantorset(int number, float x1, float x2,float y1,float y2){
+    float xm1,xm2,ynew;
+    xm1 = x1+(x2-x1)/3.0;
+    xm2 = x1+2.0*(x2-x1)/3.0;
+    ynew = y1-(y1-y2)/(float)number;
+    glBegin(GL_LINES);
     glVertex2d(x1,y1);
-    glVertex2d(x2,y2);
-    glVertex2d(x3,y3);
+    glVertex2d(x2,y1);
     glEnd();
     if(number > 1){
-        float x12,y12,x23,y23,x13,y13;
-        x12 = (x1+x2)/2.0;
-        y12 = (y1+y2)/2.0;
-        x13 = (x1+x3)/2.0;
-        y13 = (y1+y3)/2.0;
-        x23 = (x2+x3)/2.0;
-        y23 = (y2+y3)/2.0;
-
-        sierpinski(number-1,x1,y1,x12,y12,x13,y13);
-        sierpinski(number-1,x2,y2,x12,y12,x23,y23);
-        sierpinski(number-1,x3,y3,x23,y23,x13,y13);
+        cantorset(number-1,x1,xm1,ynew,y2);
+        cantorset(number-1,xm2,x2,ynew,y2);
         return;
     }else{
         return;
@@ -76,14 +70,12 @@ void sierpinski(int number, float x1, float y1, float x2,float y2,float x3,float
 void display(){
     glMatrixMode(GL_MODELVIEW);
     glClear(GL_COLOR_BUFFER_BIT);
-    float v1x,v1y,v2x,v2y,v3x,v3y;
-    v1x = 1.0f;
-    v1y = -1.0f;
-    v2x = 0.0f;
-    v2y = 1.0f;
-    v3x = -1.0f;
-    v3y = -1.0f;
-    sierpinski(10,v1x,v1y,v2x,v2y,v3x,v3y);
+    float v1x,v2x,v1y,v2y;
+    v1x = -0.9f;
+    v2x = 0.9f;
+    v1y = 0.9f;
+    v2y = -0.9f;
+    cantorset(10,v1x,v2x,v1y,v2y);
     glLoadIdentity();
     glutSwapBuffers();
 }
@@ -108,7 +100,7 @@ int main (int argc, char** argv){
     strcpy(window->title, "Main Page");
     
     mosaicgraph_draw_window(window);   
-    glPolygonMode(GL_FRONT, GL_LINE);
+    glPolygonMode(GL_FRONT, GL_FILL);
     glutDisplayFunc(display);
     glutIdleFunc(&idle);
     glutKeyboardFunc(&keyPressed);

@@ -118,7 +118,7 @@ void display(){
     v2.x = -0.75f;
     v2.y = -0.75f;
     glLoadIdentity();
-    sierpinski(5,v1,v2);
+    sierpinski(4,v1,v2);
     glutSwapBuffers();
 }
 

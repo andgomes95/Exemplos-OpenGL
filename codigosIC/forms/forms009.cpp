@@ -122,27 +122,6 @@ void mandala(){
         glVertex2d(i->x,-i->y);
     }
     glEnd();
-
-
-
-
-
-
-
-/*
-    float x = 0.5,y = 0.5;
-    float angule = atan2(x,y);
-    float r = sqrt(pow(x,2)+pow(x,2));
-    glBegin(GL_POLYGON);
-    for(int i=0;i<quantidade;i++){
-        angule = atan2(x,y);
-        angule = angule *180.0/3.1415;
-        angule = (float)i*360.0/quantidade+angule;
-        angule = angule/180.0*3.1415;
-        glVertex2d(r*cos(angule),r*sin(angule));
-    }
-    glEnd();
-*/
 }
 
 void display(){

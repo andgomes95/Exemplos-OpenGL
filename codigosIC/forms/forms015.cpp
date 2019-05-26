@@ -86,12 +86,12 @@ void voronoi(){
     list<float> distancia;
     float aux,value=88888.9;
     int indice=0, atual;
-    for(int i =0;i<400;i++){
-        for(int j=0;j<400;j++){
+    for(int i =0;i<500;i++){
+        for(int j=0;j<500;j++){
             indice=0;
             value=88888.9;
-            x0 = (float)i/200.0-1.0;
-            y0 = (float)j/200.0-1.0;
+            x0 = (float)i/250.0-1.0;
+            y0 = (float)j/250.0-1.0;
             for(auto i = pontos.begin(); i!= pontos.end();++i){
                 aux = sqrt(pow(((*i).x-x0),2)+pow(((*i).y-y0),2));
                 if(aux < value){
@@ -127,7 +127,7 @@ void display(){
 	glMatrixMode(GL_MODELVIEW);
 	glClear(GL_COLOR_BUFFER_BIT);         // Limpa o collor buffer
 	glLoadIdentity();
-    random_points(16);
+    random_points(12);
     voronoi();
     for(auto i = pontos.begin(); i!= pontos.end();++i){
         mosaicgraph_draw_circle((*i),circle_1_color);
