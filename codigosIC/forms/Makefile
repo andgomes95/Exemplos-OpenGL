@@ -58,3 +58,6 @@ forms018:
 forms019:
 	g++ forms019.cpp -o pratica -lglut -lGL -lGLU -lm -std=c++11
 	./pratica
+forms020:
+	g++ forms020.cpp -o pratica -lglut -lGL -lGLU -lm -std=c++11
+	./pratica

@@ -49,46 +49,14 @@ int mosaicgraph_draw_window(mosaicgraph_window_t * window){
     }
     return window->id;
 }
-void mengersponge(int number, float size,float initx,float inity,float initz){
-    float move;
-    move = size/3.0;
-    if(number > 1){
-        mengersponge(number-1,size/3.0,initx+move,inity+move,initz);
-        mengersponge(number-1,size/3.0,initx+move,inity,initz+move);
-        mengersponge(number-1,size/3.0,initx+move,inity+move,initz+move);
-        mengersponge(number-1,size/3.0,initx+move,inity-move,initz);
-        mengersponge(number-1,size/3.0,initx+move,inity,initz-move);
-        mengersponge(number-1,size/3.0,initx+move,inity-move,initz-move);
-        mengersponge(number-1,size/3.0,initx+move,inity-move,initz+move);
-        mengersponge(number-1,size/3.0,initx+move,inity+move,initz-move);
-
-        mengersponge(number-1,size/3.0,initx-move,inity+move,initz);
-        mengersponge(number-1,size/3.0,initx-move,inity,initz+move);
-        mengersponge(number-1,size/3.0,initx-move,inity+move,initz+move);
-        mengersponge(number-1,size/3.0,initx-move,inity-move,initz);
-        mengersponge(number-1,size/3.0,initx-move,inity,initz-move);
-        mengersponge(number-1,size/3.0,initx-move,inity-move,initz-move);
-        mengersponge(number-1,size/3.0,initx-move,inity-move,initz+move);
-        mengersponge(number-1,size/3.0,initx-move,inity+move,initz-move);
-
-        mengersponge(number-1,size/3.0,initx,inity+move,initz+move);
-        mengersponge(number-1,size/3.0,initx,inity-move,initz-move);
-        mengersponge(number-1,size/3.0,initx,inity+move,initz-move);
-        mengersponge(number-1,size/3.0,initx,inity-move,initz+move);
-        return;
-    }else{
-        glPushMatrix();
-        glTranslatef(initx,inity,initz);
-        glutSolidCube(size);
-        glPopMatrix();
-        return;
-    }
+void mandelbrot(float z, float c){
+    return z = pow(z,2)+c;
 }
 
 void display(){
     glMatrixMode(GL_MODELVIEW);
     glClear(GL_COLOR_BUFFER_BIT);
-    mengersponge(5,0.5,0.0,0.0,0.0);
+    mandelbrot();
     glLoadIdentity();
     glutSwapBuffers();
 }
@@ -103,7 +71,6 @@ void keyPressed(unsigned char key, int x, int y) {
     
 }
 void idle(){
-    glRotatef(1.0,1.0,1.00,45);
     display();
 }
 int main (int argc, char** argv){

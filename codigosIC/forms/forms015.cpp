@@ -11,8 +11,6 @@
 #include <math.h>
 #define ESCAPE 27 //Valor em ASCII do Esc
 int window;
-float radius_1 = 0.5;
-float * circle_1_color ;
 using namespace std;
 typedef struct points{
 	float x;
@@ -21,9 +19,6 @@ typedef struct points{
 
 list<pnt> pontos;
 
-void circle_radius_1(float value){
-	radius_1 = value;
-}
 
 typedef struct mosaicgraph_window{
         float x;
@@ -60,7 +55,7 @@ int mosaicgraph_draw_window(mosaicgraph_window_t * window){
 	return window->id;
 }
 
-void mosaicgraph_draw_circle(pnt p,float * rgb){
+void mosaicgraph_draw_pnt(pnt p){
 	glColor3f(1.0,1.0,1.0);
 	glBegin(GL_POLYGON);
         glVertex2f(p.x-0.01,p.y-0.01);
@@ -112,14 +107,6 @@ void voronoi(){
 
 }
 
-void random_points(int qtd){
-    pnt aux;
-    for (int i = 0;i<qtd;i++){
-        aux.x = (float)(rand()%200)/100.0-1.0;
-        aux.y = (float)(rand()%200)/100.0-1.0;
-        pontos.push_back(aux);
-    }
-}
 
 
 void display(){
@@ -127,10 +114,9 @@ void display(){
 	glMatrixMode(GL_MODELVIEW);
 	glClear(GL_COLOR_BUFFER_BIT);         // Limpa o collor buffer
 	glLoadIdentity();
-    random_points(12);
     voronoi();
     for(auto i = pontos.begin(); i!= pontos.end();++i){
-        mosaicgraph_draw_circle((*i),circle_1_color);
+        mosaicgraph_draw_pnt((*i));
     }
   	glutSwapBuffers();
 }

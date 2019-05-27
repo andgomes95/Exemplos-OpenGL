@@ -19,7 +19,6 @@ typedef struct point{
     float y;
 }pnt;
 
-
 vector<vector<pnt>> objetos;
 vector<pnt> pincel; 
 
@@ -103,10 +102,8 @@ void mandala(){
         for(int k=0;k<FATIAS;k++){
         glBegin(GL_LINE_STRIP);
         
-        for (auto i = (*j).begin(); i!= (*j).end();++i){
-            r = sqrt(pow(i->x,2)+pow(i->y,2));
-            
-                
+            for (auto i = (*j).begin(); i!= (*j).end();++i){
+                r = sqrt(pow(i->x,2)+pow(i->y,2));        
                 angule = atan2(i->x,i->y);
                 angule = angule *180.0/3.1415;
                 angule = (float)k*360.0/FATIAS+angule;
