@@ -88,7 +88,18 @@ void mengersponge(int number, float size,float initx,float inity,float initz){
 void display(){
     glMatrixMode(GL_MODELVIEW);
     glClear(GL_COLOR_BUFFER_BIT);
-    mengersponge(5,0.5,0.0,0.0,0.0);
+    glClearColor(1.0,1.0,1.0,1.0);
+    glColor3f(0.0,0.0,0.0);
+    ///glRotatef(45,1.0,1.0,0.0);
+
+    GLfloat luzAmbiente[4]={1.0,1.0,1.0,1.0};
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente); 
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, luzAmbiente); 
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
+
+    mengersponge(3,0.5,0.0,0.0,0.0);
+
     glLoadIdentity();
     glutSwapBuffers();
 }
@@ -103,7 +114,6 @@ void keyPressed(unsigned char key, int x, int y) {
     
 }
 void idle(){
-    glRotatef(1.0,1.0,1.00,45);
     display();
 }
 int main (int argc, char** argv){
@@ -113,7 +123,7 @@ int main (int argc, char** argv){
     strcpy(window->title, "Main Page");
     
     mosaicgraph_draw_window(window);   
-    glPolygonMode(GL_FRONT, GL_FILL);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glutDisplayFunc(display);
     glutIdleFunc(&idle);
     glutKeyboardFunc(&keyPressed);

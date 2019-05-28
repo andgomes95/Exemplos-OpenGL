@@ -50,11 +50,6 @@ int mosaicgraph_draw_window(mosaicgraph_window_t * window){
     return window->id;
 }
 void sierpinski(int number, float x1, float y1, float x2,float y2,float x3,float y3){
-    glBegin(GL_LINE_STRIP);
-    glVertex2d(x1,y1);
-    glVertex2d(x2,y2);
-    glVertex2d(x3,y3);
-    glEnd();
     if(number > 1){
         float x12,y12,x23,y23,x13,y13;
         x12 = (x1+x2)/2.0;
@@ -69,6 +64,11 @@ void sierpinski(int number, float x1, float y1, float x2,float y2,float x3,float
         sierpinski(number-1,x3,y3,x23,y23,x13,y13);
         return;
     }else{
+        glBegin(GL_TRIANGLES);
+        glVertex2d(x1,y1);
+        glVertex2d(x2,y2);
+        glVertex2d(x3,y3);
+        glEnd();
         return;
     }
 }
@@ -83,7 +83,9 @@ void display(){
     v2y = 1.0f;
     v3x = -1.0f;
     v3y = -1.0f;
-    sierpinski(10,v1x,v1y,v2x,v2y,v3x,v3y);
+    glClearColor(1.0,1.0,1.0,1.0);
+    glColor3f(0.0,0.0,0.0);
+    sierpinski(7,v1x,v1y,v2x,v2y,v3x,v3y);
     glLoadIdentity();
     glutSwapBuffers();
 }
@@ -108,7 +110,7 @@ int main (int argc, char** argv){
     strcpy(window->title, "Main Page");
     
     mosaicgraph_draw_window(window);   
-    glPolygonMode(GL_FRONT, GL_LINE);
+    glPolygonMode(GL_FRONT, GL_FILL);
     glutDisplayFunc(display);
     glutIdleFunc(&idle);
     glutKeyboardFunc(&keyPressed);

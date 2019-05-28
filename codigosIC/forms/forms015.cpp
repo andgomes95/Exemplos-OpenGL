@@ -135,15 +135,20 @@ int main (int argc, char** argv){
 	glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);
     mosaicgraph_window_t * window = mosaicgraph_create_window(500,500,0,0);
-	
-	circle_1_color = (float*)malloc (3 * sizeof (float));
-	circle_1_color[0] = 1.0;
-	circle_1_color[1] = 0.5;
-	circle_1_color[2] = 0.0;
-
     strcpy(window->title, "Main Page");
     //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     mosaicgraph_draw_window(window);
+    pnt aux;
+    aux.x = 1.0;
+    aux.y = -1.0;
+    float auxiliar;
+    for(int i=0;i<12;i++){
+        auxiliar = aux.x;
+        aux.x = aux.y-0.075*float(i);
+        aux.y = auxiliar+0.075*float(i);
+        pontos.push_back(aux);
+            
+    }
     
     
 

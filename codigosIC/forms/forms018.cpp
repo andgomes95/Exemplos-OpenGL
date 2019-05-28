@@ -125,6 +125,8 @@ void display(){
     float v1x,v2x,v1y,v2y;
     v1x = -0.9f;
     v2x = 0.9f;
+    glClearColor(1.0,1.0,1.0,1.0);
+    glColor3f(0.0,0.0,0.0);
     peanox(5,v1x,v2x,0.0);
     glLoadIdentity();
     glutSwapBuffers();

@@ -87,8 +87,10 @@ void display(){
     glMatrixMode(GL_MODELVIEW);
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
-    float x1=-1.0,y1=-1.0,x2=1.0,y2=-1.0;
-    kochcurve(10,x1,y1,x2,y2);
+    float x1=-1.0,y1=-0.90,x2=1.0,y2=-0.90;
+    glClearColor(1.0,1.0,1.0,1.0);
+    glColor3f(0.0,0.0,0.0);
+    kochcurve(8,x1,y1,x2,y2);
     glutSwapBuffers();
 }
 

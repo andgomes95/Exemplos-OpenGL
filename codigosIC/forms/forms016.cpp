@@ -83,7 +83,9 @@ void display(){
     v1y = -1.0f;
     v2x = 1.0f;
     v2y = 1.0f;
-    sierpinskicarpet(5,v1x,v1y,v2x,v2y);
+    glClearColor(1.0,1.0,1.0,1.0);
+    glColor3f(0.0,0.0,0.0);
+    sierpinskicarpet(3,v1x,v1y,v2x,v2y);
     glLoadIdentity();
     glutSwapBuffers();
 }

@@ -10,8 +10,8 @@
 #include <iostream>
 #include <math.h>
 #define ESCAPE 27 //Valor em ASCII do ESC
-#define WIDTH 500
-#define HEIGHT 500
+#define WIDTH 1000
+#define HEIGHT 1000
 using namespace std; 
 int window;
 
@@ -41,7 +41,7 @@ mosaicgraph_window_t * mosaicgraph_create_window(float width, float height,float
 int mosaicgraph_draw_window(mosaicgraph_window_t * window){
     glutInitWindowPosition(window->x, window->y);
     glutInitWindowSize(window->width, window->height);
-    glClearColor(window->red, window->green, window->blue, window->alpha);
+    glClearColor(1.0,1.0,1.0,1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     window->id = glutCreateWindow(window->title);
     if (window->fullscreen){
@@ -75,7 +75,9 @@ void display(){
     v2x = 0.9f;
     v1y = 0.9f;
     v2y = -0.9f;
-    cantorset(10,v1x,v2x,v1y,v2y);
+    glClearColor(1.0,1.0,1.0,1.0);
+    glColor3f(0.0,0.0,0.0);
+    cantorset(15,v1x,v2x,v1y,v2y);
     glLoadIdentity();
     glutSwapBuffers();
 }
